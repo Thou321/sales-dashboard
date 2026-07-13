@@ -564,10 +564,7 @@ tr.total-row td {
 <body>
 <!-- ========== 登录遮罩 ========== -->
 <div id="login-overlay" style="display:flex; position:fixed; inset:0; z-index:9999; background:rgba(6,6,19,0.97); backdrop-filter:blur(20px); flex-direction:column; align-items:center; justify-content:center; font-family:var(--font)">
-  <div style="background:rgba(20,20,45,0.9); border:1px solid rgba(99,102,241,0.25); border-radius:24px; padding:48px 36px; text-align:center; max-width:400px; width:90%; box-shadow:0 0 80px rgba(99,102,241,0.1)">
-    <div style="font-size:56px; margin-bottom:16px">🔐</div>
-    <h2 style="font-size:24px; font-weight:800; background:linear-gradient(135deg,#6366f1,#8b5cf6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px">嘉合伟业 · 销售看板</h2>
-    <p style="color:#8892a4; font-size:14px; margin-bottom:28px">包含敏感销售数据，请输入密码访问</p>
+  <div style="background:rgba(20,20,45,0.9); border:1px solid rgba(99,102,241,0.25); border-radius:24px; padding:36px 36px; text-align:center; max-width:400px; width:90%; box-shadow:0 0 80px rgba(99,102,241,0.1)">
     <input type="password" id="login-pwd" placeholder="请输入访问密码" autocomplete="off"
       style="width:100%; padding:14px 18px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:14px; color:#e8ecf1; font-size:16px; outline:none; text-align:center; transition:all 0.3s; margin-bottom:16px"
       onfocus="this.style.borderColor='#6366f1';this.style.boxShadow='0 0 0 3px rgba(99,102,241,0.15)'"
@@ -577,7 +574,6 @@ tr.total-row td {
       onmouseover="this.style.opacity='0.9';this.style.transform='translateY(-1px)'"
       onmouseout="this.style.opacity='1';this.style.transform='none'">验证登录</button>
     <p id="login-err" style="color:#f43f5e; font-size:13px; margin-top:12px; display:none">⚠️ 密码错误，请重试</p>
-    <p style="color:#566077; font-size:11px; margin-top:20px">使用预设密码访问 · 请联系管理员获取</p>
   </div>
 </div>
 <!-- ========== /登录遮罩 ========== -->
