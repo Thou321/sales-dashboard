@@ -587,11 +587,9 @@ tr.total-row td {
       <span class="pill">📅 <span id="meta-date">-</span></span>
       <span class="pill">🕐 更新于 <span id="meta-gen">-</span></span>
       <span class="pill warn">⏳ 本月已过 <span id="meta-time">-</span>%</span>
-      <span class="pill good" id="next-update-pill">🔄 下次更新 <span id="next-update">-</span></span>
     </div>
   </div>
   <div class="header-right">
-    <button class="btn-pill" onclick="location.reload()" title="刷新数据">🔄 刷新</button>
     <button class="btn-pill" onclick="doLogout()" title="退出登录" style="border-color:rgba(244,63,94,0.3);color:#f43f5e">🚪 退出</button>
   </div>
 </header>
@@ -637,6 +635,18 @@ tr.total-row td {
 <!-- CHANNEL CARDS -->
 <div class="section anim-up anim-d5">
   <div class="section-title">🏪 渠道进度</div>
+  <div class="filter-bar" id="chFilter">
+    <div class="filter-row">
+      <span class="filter-label">渠道：</span>
+      <span class="filter-tag active" data-type="channel" data-value="all">全部</span>
+      <!-- channel tags injected -->
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">运营：</span>
+      <span class="filter-tag active" data-type="operator" data-value="all">全部</span>
+      <!-- operator tags injected -->
+    </div>
+  </div>
   <div class="ch-grid" id="chGrid"></div>
 </div>
 
@@ -711,21 +721,6 @@ document.getElementById('meta-date').textContent = DATA.meta.date;
 document.getElementById('meta-gen').textContent = GENERATED;
 document.getElementById('meta-time').textContent = DATA.meta.time_progress;
 document.getElementById('footerGen').textContent = GENERATED;
-
-// Auto-update countdown
-(function() {
-  const el = document.getElementById('next-update');
-  let secs = 3600;
-  function tick() {
-    const h = Math.floor(secs / 3600);
-    const m = Math.floor((secs % 3600) / 60);
-    const s = secs % 60;
-    el.textContent = h + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
-    if (secs > 0) secs--;
-  }
-  tick();
-  setInterval(tick, 1000);
-})();
 
 // ===== KPI CARDS =====
 const T = DATA.total;
@@ -870,7 +865,7 @@ new Chart(document.getElementById('catRateChart'), {
   options: {
     responsive: true,
     maintainAspectRatio: false,
-    plugins: { legend: { labels: { color: '#8892a4', font: { size: 11 }, padding: 16 } } },
+    plugins: { legend: { labels: { color: '#8892a4', font: { size: 11 }, padding: 16, usePointStyle: true, pointStyleWidth: 8 } } },
     scales: {
       x: { ticks: { color: '#8892a4', font: { size: 10 } }, grid: { display: false } },
       y: { ticks: { color: '#8892a4', font: { size: 10 }, callback: v => v + '%' }, grid: { color: 'rgba(255,255,255,0.04)' }, beginAtZero: true }
@@ -909,7 +904,7 @@ new Chart(document.getElementById('channelBarChart'), {
     indexAxis: 'y',
     responsive: true,
     maintainAspectRatio: false,
-    plugins: { legend: { labels: { color: '#8892a4', font: { size: 11 }, padding: 16 } } },
+    plugins: { legend: { labels: { color: '#8892a4', font: { size: 11 }, padding: 16, usePointStyle: true, pointStyleWidth: 8 } } },
     scales: {
       x: { ticks: { color: '#8892a4', font: { size: 10 }, callback: v => v >= 10000 ? (v/10000).toFixed(0)+'万' : v }, grid: { color: 'rgba(255,255,255,0.04)' } },
       y: { ticks: { color: '#8892a4', font: { size: 10 } }, grid: { display: false } }
@@ -943,25 +938,32 @@ DATA.categories.forEach(cat => {
   catGrid.appendChild(card);
 });
 
-// ===== CHANNEL CARDS =====
+// ===== CHANNEL CARDS (with filter) =====
 const chGrid = document.getElementById('chGrid');
-DATA.channels.forEach(ch => {
-  let catsHtml = '';
-  DATA.categories.forEach(cat => {
-    const cd = ch.categories[cat];
-    if (cd.target_amount > 0 || cd.actual_amount > 0) {
-      catsHtml += `
+const chFilter = document.getElementById('chFilter');
+let filterChannel = 'all', filterOperator = 'all';
+
+function renderChannelCards() {
+  chGrid.innerHTML = '';
+  DATA.channels.forEach(ch => {
+    if (filterChannel !== 'all' && ch.name !== filterChannel) return;
+    if (filterOperator !== 'all' && ch.operator !== filterOperator) return;
+    let catsHtml = '';
+    DATA.categories.forEach(cat => {
+      const cd = ch.categories[cat];
+      if (cd.target_amount > 0 || cd.actual_amount > 0) {
+        catsHtml += `
       <div class="ch-cat-row">
         <span class="ch-cat-label">${cat}</span>
         <div class="ch-cat-mini-track"><div class="ch-cat-mini-fill" style="width:${Math.min(cd.amount_rate,100)}%;background:${barColor(cd.amount_rate)}"></div></div>
         <span class="ch-cat-mini-pct" style="color:${barColor(cd.amount_rate)}">${fmtR2(cd.amount_rate)}</span>
       </div>`;
-    }
-  });
+      }
+    });
 
-  const card = document.createElement('div');
-  card.className = 'ch-card';
-  card.innerHTML = `
+    const card = document.createElement('div');
+    card.className = 'ch-card';
+    card.innerHTML = `
     <div class="ch-top">
       <div>
         <span class="ch-name">${ch.name}</span>
@@ -987,8 +989,45 @@ DATA.channels.forEach(ch => {
       <div class="ch-cat-title">类目明细</div>
       ${catsHtml}
     </div>`;
-  chGrid.appendChild(card);
+    chGrid.appendChild(card);
+  });
+}
+
+// Build filter tags
+const channelNames = [...new Set(DATA.channels.map(c => c.name))];
+const operatorNames = [...new Set(DATA.channels.map(c => c.operator))];
+const chRow = chFilter.querySelector('.filter-row:nth-child(1)');
+const opRow = chFilter.querySelector('.filter-row:nth-child(2)');
+channelNames.forEach(name => {
+  const span = document.createElement('span');
+  span.className = 'filter-tag';
+  span.textContent = name;
+  span.dataset.type = 'channel';
+  span.dataset.value = name;
+  chRow.appendChild(span);
 });
+operatorNames.forEach(name => {
+  const span = document.createElement('span');
+  span.className = 'filter-tag';
+  span.textContent = name;
+  span.dataset.type = 'operator';
+  span.dataset.value = name;
+  opRow.appendChild(span);
+});
+
+chFilter.addEventListener('click', e => {
+  const tag = e.target.closest('.filter-tag');
+  if (!tag) return;
+  const type = tag.dataset.type;
+  const val = tag.dataset.value;
+  if (type === 'channel') { filterChannel = val; }
+  else if (type === 'operator') { filterOperator = val; }
+  // toggle active
+  chFilter.querySelectorAll(`.filter-tag[data-type="${type}"]`).forEach(t => t.classList.toggle('active', t === tag));
+  renderChannelCards();
+});
+
+renderChannelCards();
 
 // ===== DETAIL TABLE =====
 const tbody = document.getElementById('tableBody');
