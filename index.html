@@ -102,39 +102,6 @@ body::before {
 .pill.warn { color: var(--amber); border-color: rgba(245,158,11,0.3); }
 .pill.good { color: var(--green); border-color: rgba(16,185,129,0.3); }
 
-/* ===== MODE TOGGLE ===== */
-.mode-toggle {
-  display: flex;
-  align-items: center;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 3px;
-  backdrop-filter: blur(10px);
-  user-select: none;
-  cursor: pointer;
-}
-.mode-opt {
-  padding: 7px 16px;
-  border-radius: 21px;
-  font-size: 12px;
-  font-weight: 600;
-  transition: all 0.3s;
-  white-space: nowrap;
-  letter-spacing: 0.3px;
-}
-.mode-opt.active {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  color: #fff;
-  box-shadow: 0 2px 12px rgba(99,102,241,0.3);
-}
-.mode-opt:not(.active) {
-  color: var(--text-dim);
-}
-.mode-opt:not(.active):hover {
-  color: var(--text);
-}
-
 .btn-icon {
   width: 38px; height: 38px;
   border-radius: 50%;
@@ -666,125 +633,6 @@ tr.total-row td {
 .anim-d3 { animation-delay: 0.1s; }
 .anim-d4 { animation-delay: 0.15s; }
 .anim-d5 { animation-delay: 0.2s; }
-
-/* ===== MEETING MODE (PPT SLIDES) ===== */
-.meeting-mode { overflow: hidden; }
-.meeting-mode .container {
-  max-width: 100%;
-  height: 100vh;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-  padding: 0;
-}
-.meeting-mode .container::-webkit-scrollbar { display: none; }
-.meeting-mode .header,
-.meeting-mode .kpi-row,
-.meeting-mode .section {
-  min-height: 100vh;
-  scroll-snap-align: start;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 60px 80px;
-  margin: 0;
-}
-.meeting-mode .header { align-items: center; text-align: center; }
-.meeting-mode .header-left { width: 100%; }
-.meeting-mode .header-left h1 { font-size: clamp(40px, 7vw, 72px); }
-.meeting-mode .header-meta { justify-content: center; margin-top: 20px; }
-.meeting-mode .header-meta .pill { font-size: 16px; padding: 10px 24px; }
-.meeting-mode .mode-toggle { position: fixed; top: 24px; right: 24px; z-index: 100; }
-
-/* KPI slide */
-.meeting-mode .kpi-row { max-width: 1200px; margin: 0 auto; width: 100%; grid-template-columns: 1fr 1fr; }
-.meeting-mode .kpi-card { padding: 56px 64px; gap: 32px; border-radius: 28px; }
-.meeting-mode .kpi-icon { width: 56px; height: 56px; font-size: 28px; border-radius: 16px; }
-.meeting-mode .kpi-label { font-size: 22px; }
-.meeting-mode .kpi-body { gap: 48px; }
-.meeting-mode .kpi-ring-wrap { width: 160px; height: 160px; }
-.meeting-mode .kpi-ring-wrap svg { width: 160px; height: 160px; }
-.meeting-mode .kpi-ring-val { font-size: 42px; }
-.meeting-mode .kpi-ring-val small { font-size: 14px; }
-.meeting-mode .kpi-metrics { gap: 14px; }
-.meeting-mode .kpi-metric-label { font-size: 17px; }
-.meeting-mode .kpi-metric-val { font-size: 32px; }
-.meeting-mode .kpi-footer { font-size: 18px; }
-.meeting-mode .kpi-warn, .meeting-mode .kpi-ok { font-size: 18px; }
-
-/* Section titles */
-.meeting-mode .section-title { font-size: 36px; text-align: center; justify-content: center; margin-bottom: 48px; }
-.meeting-mode .section-title::before { display: none; }
-
-/* Charts */
-.meeting-mode .charts-grid { gap: 32px; max-width: 1500px; margin: 0 auto; width: 100%; }
-.meeting-mode .chart-card { padding: 32px 40px; border-radius: 28px; }
-.meeting-mode .chart-card h3 { font-size: 20px; margin-bottom: 20px; }
-.meeting-mode .chart-wrap { height: 420px; }
-
-/* Category cards */
-.meeting-mode .cat-grid { max-width: 1300px; margin: 0 auto; width: 100%; gap: 20px; }
-.meeting-mode .cat-card { padding: 32px 40px; border-radius: 22px; }
-.meeting-mode .cat-icon { font-size: 32px; }
-.meeting-mode .cat-name { font-size: 22px; }
-.meeting-mode .cat-pct { font-size: 20px; padding: 6px 16px; }
-.meeting-mode .cat-bar-label { font-size: 14px; }
-.meeting-mode .cat-bar-track { height: 10px; border-radius: 5px; }
-.meeting-mode .cat-extra { font-size: 14px; margin-top: 10px; }
-
-/* Channel cards */
-.meeting-mode .ch-grid { max-width: 1500px; margin: 0 auto; width: 100%; gap: 20px; }
-.meeting-mode .ch-card { padding: 32px 40px; border-radius: 28px; }
-.meeting-mode .ch-name { font-size: 24px; }
-.meeting-mode .ch-operator { font-size: 15px; }
-.meeting-mode .ch-badge { font-size: 14px; padding: 6px 16px; }
-.meeting-mode .ch-bar-header { font-size: 15px; margin-bottom: 8px; }
-.meeting-mode .ch-bar-track { height: 10px; border-radius: 5px; }
-.meeting-mode .ch-cat-title { font-size: 14px; }
-.meeting-mode .ch-cat-label { font-size: 14px; width: 48px; }
-.meeting-mode .ch-cat-mini-pct { font-size: 14px; width: 44px; }
-.meeting-mode .filter-row { display: none; }
-
-/* Table */
-.meeting-mode .table-shell { max-width: 1500px; margin: 0 auto; width: 100%; }
-.meeting-mode table { font-size: 16px; }
-.meeting-mode thead th { font-size: 16px; padding: 16px 24px; }
-.meeting-mode td { padding: 14px 24px; }
-.meeting-mode .footer { font-size: 18px; padding: 40px 0; }
-
-/* ===== SLIDE NAV DOTS ===== */
-.slide-nav { display: none; position: fixed; right: 24px; top: 50%; transform: translateY(-50%); z-index: 99; flex-direction: column; gap: 12px; }
-.meeting-mode .slide-nav { display: flex; }
-.slide-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.2); cursor: pointer; transition: all 0.3s; }
-.slide-dot.active { background: var(--accent); box-shadow: 0 0 12px var(--accent-glow); transform: scale(1.5); }
-.slide-dot:hover { background: rgba(255,255,255,0.5); }
-
-/* Arrow hints */
-.slide-hint { display: none; position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%); z-index: 99; color: var(--text-muted); font-size: 13px; letter-spacing: 2px; }
-.meeting-mode .slide-hint { display: block; }
-.slide-arrow { display: inline-block; animation: bounce 2s infinite; }
-.slide-arrow:nth-child(2) { animation-delay: 0.3s; }
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); opacity: 0.4; }
-  50% { transform: translateY(-6px); opacity: 1; }
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .meeting-mode .header, .meeting-mode .kpi-row, .meeting-mode .section { padding: 40px 20px; }
-  .meeting-mode .kpi-row { grid-template-columns: 1fr; }
-  .meeting-mode .kpi-card { padding: 32px 28px; }
-  .meeting-mode .kpi-ring-wrap { width: 100px; height: 100px; }
-  .meeting-mode .kpi-ring-wrap svg { width: 100px; height: 100px; }
-  .meeting-mode .kpi-ring-val { font-size: 28px; }
-  .meeting-mode .kpi-metric-val { font-size: 22px; }
-  .meeting-mode .section-title { font-size: 24px; }
-  .meeting-mode .chart-wrap { height: 280px; }
-  .meeting-mode .cat-grid { grid-template-columns: 1fr 1fr; }
-  .meeting-mode .ch-grid { grid-template-columns: 1fr; }
-  .slide-nav { right: 8px; }
-}
 </style>
 </head>
 <body>
@@ -803,8 +651,6 @@ tr.total-row td {
   </div>
 </div>
 <!-- ========== /登录遮罩 ========== -->
-<div class="slide-nav" id="slideNav"></div>
-<div class="slide-hint"><span class="slide-arrow">↓</span> <span class="slide-arrow">↓</span> 滚动翻页 · 键盘 ← →</div>
 <div class="container">
 
 <!-- HEADER -->
@@ -816,10 +662,6 @@ tr.total-row td {
       <span class="pill">🕐 更新于 <span id="meta-gen">-</span></span>
       <span class="pill warn">⏳ 本月已过 <span id="meta-time">-</span>%</span>
     </div>
-  </div>
-  <div class="mode-toggle" id="modeToggle" title="切换日常看板 / 会议展示">
-    <span class="mode-opt active" data-mode="normal">📋 日常</span>
-    <span class="mode-opt" data-mode="meeting">🎬 展示</span>
   </div>
 </header>
 
@@ -893,8 +735,8 @@ tr.total-row td {
 
 <script>
 // ===== DATA INJECTION =====
-const DATA = {"channels": [{"name": "淘宝", "operator": "徐康", "target_amount": 200000.0, "actual_amount": 90922.72, "target_profit": 8000.0, "actual_profit": 7222.36, "amount_rate": 45.5, "profit_rate": 90.3, "categories": {"板U": {"target_amount": 100000.0, "actual_amount": 59676.72, "target_profit": 4000.0, "actual_profit": 3779.9, "amount_rate": 59.7, "profit_rate": 94.5}, "整机": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显卡": {"target_amount": 30000.0, "actual_amount": 2669.0, "target_profit": 1200.0, "actual_profit": 119.0, "amount_rate": 8.9, "profit_rate": 9.9}, "显示器": {"target_amount": 30000.0, "actual_amount": 0, "target_profit": 1200.0, "actual_profit": 0, "amount_rate": 0.0, "profit_rate": 0.0}, "其他": {"target_amount": 40000.0, "actual_amount": 28577.0, "target_profit": 1600.0, "actual_profit": 3323.47, "amount_rate": 71.4, "profit_rate": 207.7}}}, {"name": "AOC", "operator": "吴冬泉", "target_amount": 100000.0, "actual_amount": 78968.25, "target_profit": 500.0, "actual_profit": 8980.14, "amount_rate": 79.0, "profit_rate": 1796.0, "categories": {"板U": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "整机": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显卡": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显示器": {"target_amount": 100000.0, "actual_amount": 78339.25, "target_profit": 500.0, "actual_profit": 8901.14, "amount_rate": 78.3, "profit_rate": 1780.2}, "其他": {"target_amount": 0.0, "actual_amount": 629.0, "target_profit": 0.0, "actual_profit": 79.0, "amount_rate": 100, "profit_rate": 100}}}, {"name": "PDD嘉合", "operator": "周凯峰", "target_amount": 2400000.0, "actual_amount": 1346562.58, "target_profit": 9999.99, "actual_profit": -43929.55, "amount_rate": 56.1, "profit_rate": -439.3, "categories": {"板U": {"target_amount": 1800000.0, "actual_amount": 1179111.58, "target_profit": 7500.0, "actual_profit": -48094.54, "amount_rate": 65.5, "profit_rate": -641.3}, "整机": {"target_amount": 200000.0, "actual_amount": 55587.0, "target_profit": 833.33, "actual_profit": -6521.28, "amount_rate": 27.8, "profit_rate": -782.6}, "显卡": {"target_amount": 200000.0, "actual_amount": 35077.0, "target_profit": 833.33, "actual_profit": -2303.0, "amount_rate": 17.5, "profit_rate": -276.4}, "显示器": {"target_amount": 200000.0, "actual_amount": 60461.0, "target_profit": 833.33, "actual_profit": 3817.83, "amount_rate": 30.2, "profit_rate": 458.1}, "其他": {"target_amount": 0.0, "actual_amount": 16326.0, "target_profit": 0.0, "actual_profit": 9171.44, "amount_rate": 100, "profit_rate": 100}}}, {"name": "PDD华硕", "operator": "周凯峰", "target_amount": 3200000.0, "actual_amount": 1515485.11, "target_profit": 20000.0, "actual_profit": 18938.7, "amount_rate": 47.4, "profit_rate": 94.7, "categories": {"板U": {"target_amount": 2000000.0, "actual_amount": 1118150.4, "target_profit": 12500.0, "actual_profit": -4567.72, "amount_rate": 55.9, "profit_rate": -36.5}, "整机": {"target_amount": 900000.0, "actual_amount": 10829.09, "target_profit": 5625.0, "actual_profit": 67.29, "amount_rate": 1.2, "profit_rate": 1.2}, "显卡": {"target_amount": 100000.0, "actual_amount": 109080.0, "target_profit": 625.0, "actual_profit": 640.0, "amount_rate": 109.1, "profit_rate": 102.4}, "显示器": {"target_amount": 200000.0, "actual_amount": 84836.0, "target_profit": 1250.0, "actual_profit": 6364.55, "amount_rate": 42.4, "profit_rate": 509.2}, "其他": {"target_amount": 0.0, "actual_amount": 192589.62, "target_profit": 0.0, "actual_profit": 16434.58, "amount_rate": 100, "profit_rate": 100}}}, {"name": "PDD铭瑄", "operator": "周凯峰", "target_amount": 550000.0, "actual_amount": 244142.72, "target_profit": 10000.0, "actual_profit": 3170.62, "amount_rate": 44.4, "profit_rate": 31.7, "categories": {"板U": {"target_amount": 500000.0, "actual_amount": 74852.3, "target_profit": 9090.91, "actual_profit": -2889.19, "amount_rate": 15.0, "profit_rate": -31.8}, "整机": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显卡": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显示器": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "其他": {"target_amount": 50000.0, "actual_amount": 169290.42, "target_profit": 909.09, "actual_profit": 6059.81, "amount_rate": 338.6, "profit_rate": 666.6}}}, {"name": "抖音嘉合", "operator": "王盼", "target_amount": 500000.0, "actual_amount": 671776.04, "target_profit": 4000.0, "actual_profit": 42014.7, "amount_rate": 134.4, "profit_rate": 1050.4, "categories": {"板U": {"target_amount": 250000.0, "actual_amount": 307909.54, "target_profit": 2000.0, "actual_profit": 28095.15, "amount_rate": 123.2, "profit_rate": 1404.8}, "整机": {"target_amount": 0.0, "actual_amount": 154469.4, "target_profit": 0.0, "actual_profit": 7493.45, "amount_rate": 100, "profit_rate": 100}, "显卡": {"target_amount": 100000.0, "actual_amount": 113247.0, "target_profit": 800.0, "actual_profit": 4322.0, "amount_rate": 113.2, "profit_rate": 540.2}, "显示器": {"target_amount": 100000.0, "actual_amount": 14697.0, "target_profit": 800.0, "actual_profit": -2768.1, "amount_rate": 14.7, "profit_rate": -346.0}, "其他": {"target_amount": 50000.0, "actual_amount": 81453.1, "target_profit": 400.0, "actual_profit": 4872.21, "amount_rate": 162.9, "profit_rate": 1218.1}}}, {"name": "抖音三超", "operator": "王盼", "target_amount": 500000.0, "actual_amount": 231267.0, "target_profit": 4000.0, "actual_profit": 12482.53, "amount_rate": 46.3, "profit_rate": 312.1, "categories": {"板U": {"target_amount": 250000.0, "actual_amount": 34722.0, "target_profit": 2000.0, "actual_profit": 754.25, "amount_rate": 13.9, "profit_rate": 37.7}, "整机": {"target_amount": 0.0, "actual_amount": 8099.0, "target_profit": 0.0, "actual_profit": 1091.9, "amount_rate": 100, "profit_rate": 100}, "显卡": {"target_amount": 100000.0, "actual_amount": 6193.0, "target_profit": 800.0, "actual_profit": 243.0, "amount_rate": 6.2, "profit_rate": 30.4}, "显示器": {"target_amount": 100000.0, "actual_amount": 0, "target_profit": 800.0, "actual_profit": 0, "amount_rate": 0.0, "profit_rate": 0.0}, "其他": {"target_amount": 50000.0, "actual_amount": 182253.0, "target_profit": 400.0, "actual_profit": 10393.38, "amount_rate": 364.5, "profit_rate": 2598.3}}}, {"name": "抖音速睿达", "operator": "吴冬泉", "target_amount": 50000.0, "actual_amount": 37466.0, "target_profit": 500.0, "actual_profit": 2280.89, "amount_rate": 74.9, "profit_rate": 456.2, "categories": {"板U": {"target_amount": 0.0, "actual_amount": 1009.0, "target_profit": 0.0, "actual_profit": 39.0, "amount_rate": 100, "profit_rate": 100}, "整机": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显卡": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显示器": {"target_amount": 50000.0, "actual_amount": 0, "target_profit": 500.0, "actual_profit": 0, "amount_rate": 0.0, "profit_rate": 0.0}, "其他": {"target_amount": 0.0, "actual_amount": 36457.0, "target_profit": 0.0, "actual_profit": 2241.89, "amount_rate": 100, "profit_rate": 100}}}, {"name": "闲鱼", "operator": "刘杭", "target_amount": 10000.0, "actual_amount": 10873.3, "target_profit": -1000.0, "actual_profit": -332.94, "amount_rate": 108.7, "profit_rate": 33.3, "categories": {"板U": {"target_amount": 3000.0, "actual_amount": 2223.76, "target_profit": -300.0, "actual_profit": 91.54, "amount_rate": 74.1, "profit_rate": -30.5}, "整机": {"target_amount": 0.0, "actual_amount": 0, "target_profit": -0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显卡": {"target_amount": 3000.0, "actual_amount": 0, "target_profit": -300.0, "actual_profit": 0, "amount_rate": 0.0, "profit_rate": -0.0}, "显示器": {"target_amount": 4000.0, "actual_amount": 700.0, "target_profit": -400.0, "actual_profit": -150.0, "amount_rate": 17.5, "profit_rate": 37.5}, "其他": {"target_amount": 0.0, "actual_amount": 7949.54, "target_profit": -0.0, "actual_profit": -274.48, "amount_rate": 100, "profit_rate": 0}}}], "categories": ["板U", "整机", "显卡", "显示器", "其他"], "cat_summary": {"板U": {"target_amount": 4903000.0, "actual_amount": 2777655.3, "target_profit": 36790.91, "actual_profit": -22791.61, "amount_rate": 56.7, "profit_rate": -61.9}, "整机": {"target_amount": 1100000.0, "actual_amount": 228984.49, "target_profit": 6458.33, "actual_profit": 2131.36, "amount_rate": 20.8, "profit_rate": 33.0}, "显卡": {"target_amount": 533000.0, "actual_amount": 266266.0, "target_profit": 3958.33, "actual_profit": 3021.0, "amount_rate": 50.0, "profit_rate": 76.3}, "显示器": {"target_amount": 784000.0, "actual_amount": 239033.25, "target_profit": 5483.33, "actual_profit": 16165.42, "amount_rate": 30.5, "profit_rate": 294.8}, "其他": {"target_amount": 190000.0, "actual_amount": 715524.68, "target_profit": 3309.09, "actual_profit": 52301.3, "amount_rate": 376.6, "profit_rate": 1580.5}}, "channel_pie": [{"name": "淘宝", "value": 90922.72, "percent": 2.2}, {"name": "AOC", "value": 78968.25, "percent": 1.9}, {"name": "PDD嘉合", "value": 1346562.58, "percent": 31.9}, {"name": "PDD华硕", "value": 1515485.11, "percent": 35.8}, {"name": "PDD铭瑄", "value": 244142.72, "percent": 5.8}, {"name": "抖音嘉合", "value": 671776.04, "percent": 15.9}, {"name": "抖音三超", "value": 231267.0, "percent": 5.5}, {"name": "抖音速睿达", "value": 37466.0, "percent": 0.9}, {"name": "闲鱼", "value": 10873.3, "percent": 0.3}], "total": {"target_amount": 7510000.0, "actual_amount": 4227463.72, "target_profit": 55999.99, "actual_profit": 50827.47, "amount_rate": 56.3, "profit_rate": 90.8}, "meta": {"date": "2026年07月31日", "time_progress": 100.0, "day": 31, "total_days": 31, "generated": "2026-07-31 10:51:19"}};
-const GENERATED = '2026-07-31 10:51:19';
+const DATA = {"channels": [{"name": "淘宝", "operator": "徐康", "target_amount": 200000.0, "actual_amount": 91920.72, "target_profit": 8000.0, "actual_profit": 7350.36, "amount_rate": 46.0, "profit_rate": 91.9, "categories": {"板U": {"target_amount": 100000.0, "actual_amount": 59676.72, "target_profit": 4000.0, "actual_profit": 3779.9, "amount_rate": 59.7, "profit_rate": 94.5}, "整机": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显卡": {"target_amount": 30000.0, "actual_amount": 2669.0, "target_profit": 1200.0, "actual_profit": 119.0, "amount_rate": 8.9, "profit_rate": 9.9}, "显示器": {"target_amount": 30000.0, "actual_amount": 0, "target_profit": 1200.0, "actual_profit": 0, "amount_rate": 0.0, "profit_rate": 0.0}, "其他": {"target_amount": 40000.0, "actual_amount": 29575.0, "target_profit": 1600.0, "actual_profit": 3451.47, "amount_rate": 73.9, "profit_rate": 215.7}}}, {"name": "AOC", "operator": "吴冬泉", "target_amount": 100000.0, "actual_amount": 78968.25, "target_profit": 500.0, "actual_profit": 8980.14, "amount_rate": 79.0, "profit_rate": 1796.0, "categories": {"板U": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "整机": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显卡": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显示器": {"target_amount": 100000.0, "actual_amount": 78339.25, "target_profit": 500.0, "actual_profit": 8901.14, "amount_rate": 78.3, "profit_rate": 1780.2}, "其他": {"target_amount": 0.0, "actual_amount": 629.0, "target_profit": 0.0, "actual_profit": 79.0, "amount_rate": 100, "profit_rate": 100}}}, {"name": "PDD嘉合", "operator": "周凯峰", "target_amount": 2400000.0, "actual_amount": 1345633.58, "target_profit": 9999.99, "actual_profit": -43900.54, "amount_rate": 56.1, "profit_rate": -439.0, "categories": {"板U": {"target_amount": 1800000.0, "actual_amount": 1178182.58, "target_profit": 7500.0, "actual_profit": -48065.53, "amount_rate": 65.5, "profit_rate": -640.9}, "整机": {"target_amount": 200000.0, "actual_amount": 55587.0, "target_profit": 833.33, "actual_profit": -6521.28, "amount_rate": 27.8, "profit_rate": -782.6}, "显卡": {"target_amount": 200000.0, "actual_amount": 35077.0, "target_profit": 833.33, "actual_profit": -2303.0, "amount_rate": 17.5, "profit_rate": -276.4}, "显示器": {"target_amount": 200000.0, "actual_amount": 60461.0, "target_profit": 833.33, "actual_profit": 3817.83, "amount_rate": 30.2, "profit_rate": 458.1}, "其他": {"target_amount": 0.0, "actual_amount": 16326.0, "target_profit": 0.0, "actual_profit": 9171.44, "amount_rate": 100, "profit_rate": 100}}}, {"name": "PDD华硕", "operator": "周凯峰", "target_amount": 3200000.0, "actual_amount": 1515485.11, "target_profit": 20000.0, "actual_profit": 18938.7, "amount_rate": 47.4, "profit_rate": 94.7, "categories": {"板U": {"target_amount": 2000000.0, "actual_amount": 1118150.4, "target_profit": 12500.0, "actual_profit": -4567.72, "amount_rate": 55.9, "profit_rate": -36.5}, "整机": {"target_amount": 900000.0, "actual_amount": 10829.09, "target_profit": 5625.0, "actual_profit": 67.29, "amount_rate": 1.2, "profit_rate": 1.2}, "显卡": {"target_amount": 100000.0, "actual_amount": 109080.0, "target_profit": 625.0, "actual_profit": 640.0, "amount_rate": 109.1, "profit_rate": 102.4}, "显示器": {"target_amount": 200000.0, "actual_amount": 84836.0, "target_profit": 1250.0, "actual_profit": 6364.55, "amount_rate": 42.4, "profit_rate": 509.2}, "其他": {"target_amount": 0.0, "actual_amount": 192589.62, "target_profit": 0.0, "actual_profit": 16434.58, "amount_rate": 100, "profit_rate": 100}}}, {"name": "PDD铭瑄", "operator": "周凯峰", "target_amount": 550000.0, "actual_amount": 244142.72, "target_profit": 10000.0, "actual_profit": 3170.62, "amount_rate": 44.4, "profit_rate": 31.7, "categories": {"板U": {"target_amount": 500000.0, "actual_amount": 74852.3, "target_profit": 9090.91, "actual_profit": -2889.19, "amount_rate": 15.0, "profit_rate": -31.8}, "整机": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显卡": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显示器": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "其他": {"target_amount": 50000.0, "actual_amount": 169290.42, "target_profit": 909.09, "actual_profit": 6059.81, "amount_rate": 338.6, "profit_rate": 666.6}}}, {"name": "抖音嘉合", "operator": "王盼", "target_amount": 500000.0, "actual_amount": 674975.04, "target_profit": 4000.0, "actual_profit": 42075.62, "amount_rate": 135.0, "profit_rate": 1051.9, "categories": {"板U": {"target_amount": 250000.0, "actual_amount": 311108.54, "target_profit": 2000.0, "actual_profit": 28156.07, "amount_rate": 124.4, "profit_rate": 1407.8}, "整机": {"target_amount": 0.0, "actual_amount": 154469.4, "target_profit": 0.0, "actual_profit": 7493.45, "amount_rate": 100, "profit_rate": 100}, "显卡": {"target_amount": 100000.0, "actual_amount": 113247.0, "target_profit": 800.0, "actual_profit": 4322.0, "amount_rate": 113.2, "profit_rate": 540.2}, "显示器": {"target_amount": 100000.0, "actual_amount": 14697.0, "target_profit": 800.0, "actual_profit": -2768.1, "amount_rate": 14.7, "profit_rate": -346.0}, "其他": {"target_amount": 50000.0, "actual_amount": 81453.1, "target_profit": 400.0, "actual_profit": 4872.21, "amount_rate": 162.9, "profit_rate": 1218.1}}}, {"name": "抖音三超", "operator": "王盼", "target_amount": 500000.0, "actual_amount": 231267.0, "target_profit": 4000.0, "actual_profit": 12482.53, "amount_rate": 46.3, "profit_rate": 312.1, "categories": {"板U": {"target_amount": 250000.0, "actual_amount": 34722.0, "target_profit": 2000.0, "actual_profit": 754.25, "amount_rate": 13.9, "profit_rate": 37.7}, "整机": {"target_amount": 0.0, "actual_amount": 8099.0, "target_profit": 0.0, "actual_profit": 1091.9, "amount_rate": 100, "profit_rate": 100}, "显卡": {"target_amount": 100000.0, "actual_amount": 6193.0, "target_profit": 800.0, "actual_profit": 243.0, "amount_rate": 6.2, "profit_rate": 30.4}, "显示器": {"target_amount": 100000.0, "actual_amount": 0, "target_profit": 800.0, "actual_profit": 0, "amount_rate": 0.0, "profit_rate": 0.0}, "其他": {"target_amount": 50000.0, "actual_amount": 182253.0, "target_profit": 400.0, "actual_profit": 10393.38, "amount_rate": 364.5, "profit_rate": 2598.3}}}, {"name": "抖音速睿达", "operator": "吴冬泉", "target_amount": 50000.0, "actual_amount": 37466.0, "target_profit": 500.0, "actual_profit": 2280.89, "amount_rate": 74.9, "profit_rate": 456.2, "categories": {"板U": {"target_amount": 0.0, "actual_amount": 1009.0, "target_profit": 0.0, "actual_profit": 39.0, "amount_rate": 100, "profit_rate": 100}, "整机": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显卡": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显示器": {"target_amount": 50000.0, "actual_amount": 0, "target_profit": 500.0, "actual_profit": 0, "amount_rate": 0.0, "profit_rate": 0.0}, "其他": {"target_amount": 0.0, "actual_amount": 36457.0, "target_profit": 0.0, "actual_profit": 2241.89, "amount_rate": 100, "profit_rate": 100}}}, {"name": "闲鱼", "operator": "刘杭", "target_amount": 10000.0, "actual_amount": 10873.3, "target_profit": -1000.0, "actual_profit": -332.94, "amount_rate": 108.7, "profit_rate": 33.3, "categories": {"板U": {"target_amount": 3000.0, "actual_amount": 2223.76, "target_profit": -300.0, "actual_profit": 91.54, "amount_rate": 74.1, "profit_rate": -30.5}, "整机": {"target_amount": 0.0, "actual_amount": 0, "target_profit": -0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显卡": {"target_amount": 3000.0, "actual_amount": 0, "target_profit": -300.0, "actual_profit": 0, "amount_rate": 0.0, "profit_rate": -0.0}, "显示器": {"target_amount": 4000.0, "actual_amount": 700.0, "target_profit": -400.0, "actual_profit": -150.0, "amount_rate": 17.5, "profit_rate": 37.5}, "其他": {"target_amount": 0.0, "actual_amount": 7949.54, "target_profit": -0.0, "actual_profit": -274.48, "amount_rate": 100, "profit_rate": 0}}}], "categories": ["板U", "整机", "显卡", "显示器", "其他"], "cat_summary": {"板U": {"target_amount": 4903000.0, "actual_amount": 2779925.3, "target_profit": 36790.91, "actual_profit": -22701.69, "amount_rate": 56.7, "profit_rate": -61.7}, "整机": {"target_amount": 1100000.0, "actual_amount": 228984.49, "target_profit": 6458.33, "actual_profit": 2131.36, "amount_rate": 20.8, "profit_rate": 33.0}, "显卡": {"target_amount": 533000.0, "actual_amount": 266266.0, "target_profit": 3958.33, "actual_profit": 3021.0, "amount_rate": 50.0, "profit_rate": 76.3}, "显示器": {"target_amount": 784000.0, "actual_amount": 239033.25, "target_profit": 5483.33, "actual_profit": 16165.42, "amount_rate": 30.5, "profit_rate": 294.8}, "其他": {"target_amount": 190000.0, "actual_amount": 716522.68, "target_profit": 3309.09, "actual_profit": 52429.3, "amount_rate": 377.1, "profit_rate": 1584.4}}, "channel_pie": [{"name": "淘宝", "value": 91920.72, "percent": 2.2}, {"name": "AOC", "value": 78968.25, "percent": 1.9}, {"name": "PDD嘉合", "value": 1345633.58, "percent": 31.8}, {"name": "PDD华硕", "value": 1515485.11, "percent": 35.8}, {"name": "PDD铭瑄", "value": 244142.72, "percent": 5.8}, {"name": "抖音嘉合", "value": 674975.04, "percent": 16.0}, {"name": "抖音三超", "value": 231267.0, "percent": 5.5}, {"name": "抖音速睿达", "value": 37466.0, "percent": 0.9}, {"name": "闲鱼", "value": 10873.3, "percent": 0.3}], "total": {"target_amount": 7510000.0, "actual_amount": 4230731.72, "target_profit": 55999.99, "actual_profit": 51045.39, "amount_rate": 56.3, "profit_rate": 91.2}, "meta": {"date": "2026年07月31日", "time_progress": 100.0, "day": 31, "total_days": 31, "generated": "2026-07-31 10:58:25"}};
+const GENERATED = '2026-07-31 10:58:25';
 
 // ===== UTILS =====
 const fmtW = n => (n / 10000).toFixed(1) + '万';
@@ -929,13 +771,11 @@ function statusTxt(r) {
   return '未启动';
 }
 
-// Chart.js dark theme defaults (CDN可能被墙，加保护)
-if (typeof Chart !== 'undefined') {
-  Chart.defaults.color = '#8892a4';
-  Chart.defaults.borderColor = 'rgba(255,255,255,0.04)';
-  Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
-  Chart.defaults.font.size = 11;
-}
+// Chart.js dark theme defaults
+Chart.defaults.color = '#8892a4';
+Chart.defaults.borderColor = 'rgba(255,255,255,0.04)';
+Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
+Chart.defaults.font.size = 11;
 
 // ===== META =====
 document.getElementById('meta-date').textContent = DATA.meta.date;
@@ -1034,8 +874,6 @@ kpiRow.innerHTML = `
 </div>`;
 
 // ===== CHARTS =====
-const allCharts = [];
-if (typeof Chart !== 'undefined') {
 const baseOpts = {
   responsive: true,
   maintainAspectRatio: false,
@@ -1047,7 +885,7 @@ const baseOpts = {
 };
 
 // Cat Bar Chart
-allCharts.push(new Chart(document.getElementById('catBarChart'), {
+new Chart(document.getElementById('catBarChart'), {
   type: 'bar',
   data: {
     labels: DATA.categories,
@@ -1079,11 +917,11 @@ allCharts.push(new Chart(document.getElementById('catBarChart'), {
       y: { ticks: { color: '#8892a4', font: { size: 10 }, callback: v => v >= 10000 ? (v/10000).toFixed(0)+'万' : v }, grid: { color: 'rgba(255,255,255,0.04)' } }
     }
   }
-}));
+});
 
 // Channel Pie
 const pieColors = ['#6366f1','#10b981','#f59e0b','#f43f5e','#8b5cf6','#38bdf8','#ec4899','#f97316','#84cc16'];
-allCharts.push(new Chart(document.getElementById('channelPieChart'), {
+new Chart(document.getElementById('channelPieChart'), {
   type: 'doughnut',
   data: {
     labels: DATA.channel_pie.map(c => c.name),
@@ -1106,10 +944,10 @@ allCharts.push(new Chart(document.getElementById('channelPieChart'), {
       tooltip: { callbacks: { label: ctx => ctx.label + ': ¥' + ctx.raw.toLocaleString() + ' (' + DATA.channel_pie[ctx.dataIndex].percent + '%)' } }
     }
   }
-}));
+});
 
 // Cat Rate Chart
-allCharts.push(new Chart(document.getElementById('catRateChart'), {
+new Chart(document.getElementById('catRateChart'), {
   type: 'bar',
   data: {
     labels: DATA.categories,
@@ -1143,11 +981,11 @@ allCharts.push(new Chart(document.getElementById('catRateChart'), {
       y: { ticks: { color: '#8892a4', font: { size: 10 }, callback: v => v + '%' }, grid: { color: 'rgba(255,255,255,0.04)' }, beginAtZero: true }
     }
   }
-}));
+});
 
 // Channel Horizontal Bar
 const chSorted = [...DATA.channels].reverse();
-allCharts.push(new Chart(document.getElementById('channelBarChart'), {
+new Chart(document.getElementById('channelBarChart'), {
   type: 'bar',
   data: {
     labels: chSorted.map(c => c.name),
@@ -1182,9 +1020,7 @@ allCharts.push(new Chart(document.getElementById('channelBarChart'), {
       y: { ticks: { color: '#8892a4', font: { size: 10 } }, grid: { display: false } }
     }
   }
-}));
-
-} // end if typeof Chart
+});
 
 // ===== CATEGORY CARDS =====
 const catIcons = { '板U': '💻', '整机': '🖥️', '显卡': '🎮', '显示器': '📺', '其他': '📦' };
@@ -1346,99 +1182,6 @@ DATA.channels.forEach(ch => {
   }
 });
 
-// ===== MODE TOGGLE + SLIDE NAV =====
-(function() {
-  const body = document.body;
-  const toggle = document.getElementById('modeToggle');
-  const opts = toggle.querySelectorAll('.mode-opt');
-  const slideNav = document.getElementById('slideNav');
-
-  // Build slide nav dots
-  const slides = [];
-  function buildSlideNav() {
-    slideNav.innerHTML = '';
-    // Collect slide anchors: header, kpi, each .section
-    const container = document.querySelector('.container');
-    const items = container.querySelectorAll('.header, .kpi-row, .section');
-    items.forEach((el, i) => {
-      slides.push(el);
-      const dot = document.createElement('div');
-      dot.className = 'slide-dot';
-      dot.title = '第' + (i+1) + '页';
-      dot.addEventListener('click', () => {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-      slideNav.appendChild(dot);
-    });
-  }
-  buildSlideNav();
-
-  // IntersectionObserver for dot syncing
-  let observer;
-  function setupObserver() {
-    if (observer) observer.disconnect();
-    const dots = slideNav.querySelectorAll('.slide-dot');
-    observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          dots.forEach(d => d.classList.remove('active'));
-          const idx = slides.indexOf(e.target);
-          if (idx >= 0 && dots[idx]) dots[idx].classList.add('active');
-        }
-      });
-    }, { threshold: 0.5 });
-    slides.forEach(s => observer.observe(s));
-  }
-  setupObserver();
-
-  // Keyboard nav
-  function onKeyDown(e) {
-    if (!body.classList.contains('meeting-mode')) return;
-    const dots = slideNav.querySelectorAll('.slide-dot');
-    let cur = Array.from(dots).findIndex(d => d.classList.contains('active'));
-    if (cur < 0) cur = 0;
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-      e.preventDefault();
-      const next = Math.min(cur + 1, slides.length - 1);
-      slides[next].scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-      e.preventDefault();
-      const prev = Math.max(cur - 1, 0);
-      slides[prev].scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-  document.addEventListener('keydown', onKeyDown);
-
-  // Init from localStorage
-  const saved = localStorage.getItem('dashboard_mode');
-  if (saved === 'meeting') {
-    body.classList.add('meeting-mode');
-    opts[0].classList.remove('active');
-    opts[1].classList.add('active');
-  }
-
-  // Click handler
-  opts.forEach(opt => {
-    opt.addEventListener('click', () => {
-      opts.forEach(o => o.classList.remove('active'));
-      opt.classList.add('active');
-      const mode = opt.dataset.mode;
-      localStorage.setItem('dashboard_mode', mode);
-      if (mode === 'meeting') {
-        body.classList.add('meeting-mode');
-        // Scroll to top and re-setup observer
-        document.querySelector('.container').scrollTop = 0;
-        setTimeout(() => {
-          allCharts.forEach(c => c.resize());
-          setupObserver();
-        }, 400);
-      } else {
-        body.classList.remove('meeting-mode');
-        setTimeout(() => allCharts.forEach(c => c.resize()), 350);
-      }
-    });
-  });
-})();
 </script>
 <!-- ========== 登录鉴权 ========== -->
 <script>
