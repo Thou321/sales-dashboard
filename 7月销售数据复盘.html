@@ -1367,6 +1367,9 @@ function scaleStage() {
   var scale = Math.min(scaleX, scaleY);
   stage.style.transform = 'scale(' + scale + ')';
 }
+scaleStage();
+window.addEventListener('resize', scaleStage);
+
 // ===== 导航：鼠标滚轮 + 点击 + 键盘 =====
 var slides = document.querySelectorAll('.slide');
 var currentSlide = 0;
