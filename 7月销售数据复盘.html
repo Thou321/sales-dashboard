@@ -228,7 +228,8 @@ html, body {
   font-weight: 700; border-top: 2px solid var(--border-strong);
   border-bottom: none; color: var(--accent-amber);
 }
-.data-table .negative { color: var(--accent-coral); }
+.data-table .negative { color: var(--accent-coral); font-weight: 700; }
+.data-table .loss-highlight td { background: rgba(255,94,108,0.12) !important; }
 
 /* === 进度条 === */
 .progress-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
@@ -268,6 +269,7 @@ html, body {
 .tag.down { background: var(--accent-coral-dim); color: var(--accent-coral); }
 .tag.warn { background: var(--accent-amber-dim); color: var(--accent-amber); }
 .tag.info { background: var(--accent-blue-dim); color: var(--accent-blue); }
+.tag.coral { background: var(--accent-coral-dim); color: var(--accent-coral); }
 
 /* === 背景装饰 === */
 .bg-glow {
@@ -346,9 +348,9 @@ html, body {
       </div>
     </div>
     <div class="reveal" style="margin-top:96px;display:flex;gap:16px;">
-      <span class="tag warn">实销434万</span>
-      <span class="tag down">环比大幅下降</span>
-      <span class="tag info">含8月计划</span>
+      <span class="tag coral">实销434万</span>
+      <span class="tag coral">亏损37.4万</span>
+      <span class="tag warn">距盈亏平衡差191万</span>
     </div>
   </div>
 
@@ -842,6 +844,42 @@ html, body {
       </div>
     </div>
 
+        </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- Slide 6b: 推广效率全景洞察 -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="6b">
+  <div class="grid-pattern"></div>
+  <div class="bg-glow teal" style="width:400px;height:400px;top:-50px;left:100px;opacity:0.05;"></div>
+
+  <div class="slide-inner">
+    <div class="slide-header reveal">
+      <span class="slide-num">06b</span>
+      <span class="slide-title">推广效率全景洞察</span>
+      <span class="slide-subtitle">投产比环比 · 抖音投放 · ROI评价</span>
+    </div>
+
+        </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- Slide 6b: 推广效率全景洞察 -->
+<!-- ============================================================ -->
+<div class="slide" data-slide="6b">
+  <div class="grid-pattern"></div>
+  <div class="bg-glow teal" style="width:400px;height:400px;top:-50px;left:100px;opacity:0.05;"></div>
+
+  <div class="slide-inner">
+    <div class="slide-header reveal">
+      <span class="slide-num">06b</span>
+      <span class="slide-title">推广效率全景洞察</span>
+      <span class="slide-subtitle">投产比环比 · 抖音投放 · ROI评价</span>
+    </div>
+
     <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:28px;flex:1;" class="reveal">
       <div class="card">
         <div class="card-title">投产比对比 · 上月 vs 本月</div>
@@ -947,22 +985,22 @@ html, body {
           <tbody>
             <tr class="section-row"><td>一、商品及服务销售收入</td><td class="num">4,233,022</td><td class="num">100%</td><td class="num">—</td></tr>
             <tr><td style="padding-left:28px;">减：商品成本</td><td class="num">4,193,306</td><td class="num">99.06%</td><td class="num">—</td></tr>
-            <tr class="total-row"><td>商品销售毛利</td><td class="num">39,715</td><td class="num">0.94%</td><td class="num">—</td></tr>
+            <tr class="total-row loss-highlight"><td>商品销售毛利</td><td class="num" style="color:var(--accent-coral);">39,715</td><td class="num">0.94%</td><td class="num">—</td></tr>
             <tr class="section-row"><td>减：运营成本合计</td><td class="num">274,832</td><td class="num">6.49%</td><td class="num">—</td></tr>
-            <tr><td style="padding-left:28px;">平台佣金</td><td class="num">155,942</td><td class="num">3.68%</td><td class="num">56.74%</td></tr>
+            <tr><td style="padding-left:28px;">平台佣金</td><td class="num negative">155,942</td><td class="num">3.68%</td><td class="num">56.74%</td></tr>
             <tr><td style="padding-left:28px;">物流费用</td><td class="num">74,841</td><td class="num">1.77%</td><td class="num">27.23%</td></tr>
             <tr><td style="padding-left:28px;">直通车费用</td><td class="num">25,229</td><td class="num">0.60%</td><td class="num">9.18%</td></tr>
             <tr><td style="padding-left:28px;">返现费用</td><td class="num">8,587</td><td class="num">0.20%</td><td class="num">3.12%</td></tr>
             <tr><td style="padding-left:28px;">其他运营费用</td><td class="num">10,232</td><td class="num">0.24%</td><td class="num">3.72%</td></tr>
-            <tr class="total-row"><td>二、商品运营利润</td><td class="num negative">-235,117</td><td class="num negative">-5.55%</td><td class="num">—</td></tr>
+            <tr class="total-row loss-highlight"><td>二、商品运营利润</td><td class="num negative">-235,117</td><td class="num negative">-5.55%</td><td class="num">—</td></tr>
             <tr class="section-row"><td>减：费用合计</td><td class="num">201,423</td><td class="num">4.76%</td><td class="num">—</td></tr>
             <tr><td style="padding-left:28px;">工资及保险</td><td class="num">166,755</td><td class="num">3.94%</td><td class="num">88.65%</td></tr>
             <tr><td style="padding-left:28px;">房租水电</td><td class="num">12,743</td><td class="num">0.30%</td><td class="num">6.77%</td></tr>
             <tr><td style="padding-left:28px;">国税税费</td><td class="num">13,301</td><td class="num">0.31%</td><td class="num">100%</td></tr>
             <tr><td style="padding-left:28px;">其他管理费</td><td class="num">8,624</td><td class="num">0.20%</td><td class="num">4.57%</td></tr>
-            <tr class="total-row"><td>三、营业利润</td><td class="num negative">-436,540</td><td class="num negative">-10.31%</td><td class="num">—</td></tr>
+            <tr class="total-row loss-highlight"><td>三、营业利润</td><td class="num negative">-436,540</td><td class="num negative">-10.31%</td><td class="num">—</td></tr>
             <tr class="section-row"><td>加：营业外收入</td><td class="num">62,786</td><td class="num">1.48%</td><td class="num">—</td></tr>
-            <tr class="total-row"><td>四、税前利润总额</td><td class="num negative">-373,764</td><td class="num negative">-8.83%</td><td class="num">—</td></tr>
+            <tr class="total-row loss-highlight"><td>四、税前利润总额</td><td class="num negative">-373,764</td><td class="num negative">-8.83%</td><td class="num">—</td></tr>
           </tbody>
         </table>
       </div>
