@@ -386,14 +386,14 @@ html, body {
         <div class="metric-delta">毛利率约 1.1%</div>
       </div>
       <div class="metric-card blue">
-        <div class="metric-label">百亿补贴返款（估）</div>
-        <div class="metric-value">15<span class="metric-unit">万</span></div>
-        <div class="metric-delta">估算值</div>
+        <div class="metric-label">百亿补贴返款（已确认）</div>
+        <div class="metric-value">11.4<span class="metric-unit">万</span></div>
+        <div class="metric-delta">平台返款 · 计入营业外收入</div>
       </div>
       <div class="metric-card coral">
         <div class="metric-label">税前利润总额</div>
-        <div class="metric-value" style="color:var(--accent-coral);">-37.4<span class="metric-unit">万</span></div>
-        <div class="metric-delta down">亏损 · 利润率 -8.83%</div>
+        <div class="metric-value" style="color:var(--accent-coral);">-41.0<span class="metric-unit">万</span></div>
+        <div class="metric-delta down">亏损 · 利润率 -9.68%</div>
       </div>
     </div>
 
@@ -961,8 +961,8 @@ html, body {
             <tr><td style="padding-left:28px;">国税税费</td><td class="num">13,301</td><td class="num">0.31%</td><td class="num">100%</td></tr>
             <tr><td style="padding-left:28px;">其他管理费</td><td class="num">8,624</td><td class="num">0.20%</td><td class="num">4.57%</td></tr>
             <tr class="total-row"><td>三、营业利润</td><td class="num negative">-436,540</td><td class="num negative">-10.31%</td><td class="num">—</td></tr>
-            <tr class="section-row"><td>加：营业外收入</td><td class="num">62,786</td><td class="num">1.48%</td><td class="num">—</td></tr>
-            <tr class="total-row"><td>四、税前利润总额</td><td class="num negative">-373,764</td><td class="num negative">-8.83%</td><td class="num">—</td></tr>
+            <tr class="section-row"><td>加：营业外收入</td><td class="num">26,786</td><td class="num">1.48%</td><td class="num">—</td></tr>
+            <tr class="total-row"><td>四、税前利润总额</td><td class="num negative">-409,764</td><td class="num negative">-9.68%</td><td class="num">—</td></tr>
           </tbody>
         </table>
       </div>
@@ -987,10 +987,10 @@ html, body {
             <rect x="320" y="310" width="50" height="28" rx="6" fill="rgba(255,184,77,0.2)" stroke="#ffb84d" stroke-width="2"/>
             <text x="345" y="352" text-anchor="middle" fill="#ffb84d" font-family="Space Grotesk" font-size="14" font-weight="700">-20.1万</text>
             <text x="345" y="370" text-anchor="middle" fill="#8b95a8" font-family="Noto Sans SC" font-size="12">固定费用</text>
-            <rect x="390" y="296" width="50" height="14" rx="6" fill="rgba(0,217,165,0.2)" stroke="#00d9a5" stroke-width="2"/>
-            <text x="415" y="288" text-anchor="middle" fill="#00d9a5" font-family="Space Grotesk" font-size="14" font-weight="700">+6.3万</text>
+            <rect x="390" y="296" width="50" height="6" rx="3" fill="rgba(0,217,165,0.2)" stroke="#00d9a5" stroke-width="2"/>
+            <text x="415" y="288" text-anchor="middle" fill="#00d9a5" font-family="Space Grotesk" font-size="14" font-weight="700">+2.7万</text>
             <text x="415" y="330" text-anchor="middle" fill="#8b95a8" font-family="Noto Sans SC" font-size="12">营业外</text>
-            <text x="230" y="372" text-anchor="middle" fill="#ff5e6c" font-family="Space Grotesk" font-size="18" font-weight="700">税前利润 = -37.4万</text>
+            <text x="230" y="372" text-anchor="middle" fill="#ff5e6c" font-family="Space Grotesk" font-size="18" font-weight="700">税前利润 = -41.0万</text>
           </svg>
         </div>
 
@@ -1042,24 +1042,24 @@ html, body {
         <div class="card-title">盈亏平衡推导过程</div>
         <div style="display:flex;flex-direction:column;gap:18px;margin-top:20px;">
           <div style="padding:20px;background:var(--accent-teal-dim);border-radius:var(--radius-sm);border-left:4px solid var(--accent-teal);">
-            <div style="font-size:15px;color:var(--text-muted);margin-bottom:6px;">Step 1 · 毛利率</div>
-            <div style="font-family:var(--font-num);font-size:24px;font-weight:700;color:var(--accent-teal);">198,000 ÷ 4,340,000 = 4.5%</div>
-            <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;">毛利÷销售额（含补贴调整后）</div>
+            <div style="font-size:15px;color:var(--text-muted);margin-bottom:6px;">Step 1 · 毛利率（含补贴调整）</div>
+            <div style="font-family:var(--font-num);font-size:24px;font-weight:700;color:var(--accent-teal);">162,000 ÷ 4,340,000 = 3.7%</div>
+            <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;">毛利÷销售额（补贴11.4万计入后）</div>
           </div>
           <div style="padding:20px;background:var(--accent-blue-dim);border-radius:var(--radius-sm);border-left:4px solid var(--accent-blue);">
             <div style="font-size:15px;color:var(--text-muted);margin-bottom:6px;">Step 2 · 扣除平台费用</div>
-            <div style="font-family:var(--font-num);font-size:24px;font-weight:700;color:var(--accent-blue);">4.5% − 0.6% = 3.9%</div>
+            <div style="font-family:var(--font-num);font-size:24px;font-weight:700;color:var(--accent-blue);">3.7% − 0.6% = 3.1%</div>
             <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;">平台佣金占销售额约0.6%</div>
           </div>
           <div style="padding:20px;background:var(--accent-amber-dim);border-radius:var(--radius-sm);border-left:4px solid var(--accent-amber);">
             <div style="font-size:15px;color:var(--text-muted);margin-bottom:6px;">Step 3 · 扣除运费</div>
-            <div style="font-family:var(--font-num);font-size:24px;font-weight:700;color:var(--accent-amber);">3.9% − 0.7% = 3.2%</div>
+            <div style="font-family:var(--font-num);font-size:24px;font-weight:700;color:var(--accent-amber);">3.1% − 0.7% = 2.4%</div>
             <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;">物流费用占销售额约0.7%</div>
           </div>
           <div style="padding:20px;background:var(--accent-coral-dim);border-radius:var(--radius-sm);border-left:4px solid var(--accent-coral);">
             <div style="font-size:15px;color:var(--text-muted);margin-bottom:6px;">Step 4 · 保本销售额</div>
-            <div style="font-family:var(--font-num);font-size:32px;font-weight:700;color:var(--accent-coral);">200,000 ÷ 3.2% = 6,250,000</div>
-            <div style="font-size:16px;color:var(--text-secondary);margin-top:6px;">固定成本20万 ÷ 净利率3.2% = <strong style="color:var(--accent-coral);">625万</strong></div>
+            <div style="font-family:var(--font-num);font-size:32px;font-weight:700;color:var(--accent-coral);">200,000 ÷ 2.4% = 8,330,000</div>
+            <div style="font-size:16px;color:var(--text-secondary);margin-top:6px;">固定成本20万 ÷ 净利率2.4% = <strong style="color:var(--accent-coral);">833万</strong></div>
           </div>
         </div>
       </div>
@@ -1069,18 +1069,18 @@ html, body {
           <div class="card-title">当前 vs 保本点</div>
           <svg width="100%" height="240" viewBox="0 0 460 240" style="margin-top:20px;">
             <line x1="40" y1="70" x2="420" y2="70" stroke="#ff5e6c" stroke-width="2.5" stroke-dasharray="8 5"/>
-            <text x="424" y="76" fill="#ff5e6c" font-family="Space Grotesk" font-size="16" font-weight="600">625万</text>
+            <text x="424" y="76" fill="#ff5e6c" font-family="Space Grotesk" font-size="16" font-weight="600">833万</text>
             <text x="40" y="58" fill="#ff5e6c" font-family="Noto Sans SC" font-size="14">保本线</text>
             <rect x="80" y="112" width="120" height="98" rx="8" fill="rgba(255,184,77,0.2)" stroke="#ffb84d" stroke-width="2"/>
             <text x="140" y="166" text-anchor="middle" fill="#ffb84d" font-family="Space Grotesk" font-size="28" font-weight="700">434万</text>
             <text x="140" y="188" text-anchor="middle" fill="#8b95a8" font-family="Noto Sans SC" font-size="13">当前销售额</text>
             <rect x="200" y="70" width="100" height="42" rx="6" fill="rgba(255,94,108,0.15)" stroke="#ff5e6c" stroke-width="2" stroke-dasharray="5 4"/>
-            <text x="250" y="96" text-anchor="middle" fill="#ff5e6c" font-family="Space Grotesk" font-size="18" font-weight="700">缺口191万</text>
+            <text x="250" y="96" text-anchor="middle" fill="#ff5e6c" font-family="Space Grotesk" font-size="18" font-weight="700">缺口399万</text>
             <rect x="290" y="84" width="100" height="98" rx="8" fill="rgba(77,159,255,0.15)" stroke="#4d9fff" stroke-width="2"/>
             <text x="340" y="138" text-anchor="middle" fill="#4d9fff" font-family="Space Grotesk" font-size="28" font-weight="700">481万</text>
             <text x="340" y="160" text-anchor="middle" fill="#8b95a8" font-family="Noto Sans SC" font-size="13">8月计划</text>
             <rect x="390" y="105" width="40" height="5" rx="2" fill="rgba(255,94,108,0.3)"/>
-            <text x="410" y="118" text-anchor="middle" fill="#ff5e6c" font-family="Space Grotesk" font-size="13" font-weight="600">仍差144万</text>
+            <text x="410" y="118" text-anchor="middle" fill="#ff5e6c" font-family="Space Grotesk" font-size="13" font-weight="600">需增399万</text>
             <text x="250" y="228" text-anchor="middle" fill="#ff5e6c" font-family="Noto Sans SC" font-size="14">8月计划仍低于保本线，需追加预算或调高毛利</text>
           </svg>
         </div>
@@ -1090,13 +1090,13 @@ html, body {
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
             <div style="padding:18px;background:var(--accent-coral-dim);border-radius:var(--radius-sm);">
               <div style="font-size:14px;color:var(--text-muted);">当前缺口</div>
-              <div style="font-family:var(--font-num);font-size:36px;font-weight:700;color:var(--accent-coral);">191<span style="font-size:18px;">万</span></div>
+              <div style="font-family:var(--font-num);font-size:36px;font-weight:700;color:var(--accent-coral);">399<span style="font-size:18px;">万</span></div>
               <div style="font-size:13px;color:var(--text-secondary);">距保本点差额</div>
             </div>
             <div style="padding:18px;background:var(--accent-coral-dim);border-radius:var(--radius-sm);">
               <div style="font-size:14px;color:var(--text-muted);">8月计划仍差</div>
-              <div style="font-family:var(--font-num);font-size:36px;font-weight:700;color:var(--accent-coral);">144<span style="font-size:18px;">万</span></div>
-              <div style="font-size:13px;color:var(--text-secondary);">低于保本线23%</div>
+              <div style="font-family:var(--font-num);font-size:36px;font-weight:700;color:var(--accent-coral);">399<span style="font-size:18px;">万</span></div>
+              <div style="font-size:13px;color:var(--text-secondary);">低于保本线42%</div>
             </div>
             <div style="padding:18px;background:var(--accent-amber-dim);border-radius:var(--radius-sm);">
               <div style="font-size:14px;color:var(--text-muted);">8月计划增幅</div>
@@ -1105,8 +1105,8 @@ html, body {
             </div>
             <div style="padding:18px;background:var(--accent-amber-dim);border-radius:var(--radius-sm);">
               <div style="font-size:14px;color:var(--text-muted);">净利率要求</div>
-              <div style="font-family:var(--font-num);font-size:36px;font-weight:700;color:var(--accent-amber);">3.2<span style="font-size:18px;">%</span></div>
-              <div style="font-size:13px;color:var(--text-secondary);">维持不变的净利率</div>
+              <div style="font-family:var(--font-num);font-size:36px;font-weight:700;color:var(--accent-amber);">2.4<span style="font-size:18px;">%</span></div>
+              <div style="font-size:13px;color:var(--text-secondary);">实际需达到的净利率</div>
             </div>
           </div>
         </div>
@@ -1231,7 +1231,7 @@ html, body {
             <div style="font-family:var(--font-num);font-size:28px;font-weight:700;color:var(--accent-coral);">01</div>
             <div>
               <div style="font-size:19px;font-weight:600;color:var(--text-primary);margin-bottom:6px;">毛利率极低，结构性亏损</div>
-              <div style="font-size:15px;color:var(--text-secondary);line-height:1.5;">商品成本占收入99%，毛利仅0.94%。百亿补贴返款15万是关键缓冲，但不是可持续利润来源。</div>
+              <div style="font-size:15px;color:var(--text-secondary);line-height:1.5;">商品成本占收入99%，毛利仅0.94%。百亿补贴返款11.4万是关键缓冲，但不是可持续利润来源。</div>
             </div>
           </div>
         </div>
