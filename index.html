@@ -61,7 +61,51 @@ body { display:flex; flex-direction:column; }
   <iframe class="active" src="7月销售目标看板.html" data-page="dashboard"></iframe>
   <iframe src="7月销售数据复盘.html" data-page="review"></iframe>
 </div>
+
+<!-- 统一登录遮罩 -->
+<div id="login-overlay" style="display:flex; position:fixed; inset:0; z-index:9999; background:rgba(6,6,19,0.97); backdrop-filter:blur(20px); flex-direction:column; align-items:center; justify-content:center;">
+  <div style="background:rgba(20,20,45,0.9); border:1px solid rgba(99,102,241,0.25); border-radius:24px; padding:48px 36px; text-align:center; max-width:400px; width:90%; box-shadow:0 0 80px rgba(99,102,241,0.1)">
+    <div style="font-size:24px;font-weight:700;color:#e8ecf1;margin-bottom:8px;">🔐 访问验证</div>
+    <div style="font-size:14px;color:#8892a4;margin-bottom:20px;">请输入密码查看数据</div>
+    <input type="password" id="login-pwd" placeholder="请输入访问密码" autocomplete="off"
+      style="width:100%; padding:14px 18px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:14px; color:#e8ecf1; font-size:16px; outline:none; text-align:center; transition:all 0.3s; margin-bottom:16px"
+      onfocus="this.style.borderColor='#6366f1';this.style.boxShadow='0 0 0 3px rgba(99,102,241,0.15)'"
+      onblur="this.style.borderColor='rgba(255,255,255,0.12)';this.style.boxShadow='none'"
+      onkeydown="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()" style="width:100%; padding:14px; background:linear-gradient(135deg,#6366f1,#8b5cf6); color:#fff; border:none; border-radius:14px; font-size:16px; font-weight:700; cursor:pointer; transition:all 0.2s"
+      onmouseover="this.style.opacity='0.9';this.style.transform='translateY(-1px)'"
+      onmouseout="this.style.opacity='1';this.style.transform='none'">验证登录</button>
+    <p id="login-err" style="color:#f43f5e; font-size:13px; margin-top:12px; display:none">密码错误，请重试</p>
+  </div>
+</div>
 <script>
+// 密码验证
+var AUTH_HASH = '189c4bb71400c9818638cecfdaf1d96dc32c6f7364eb675dcaf4ff8eb2eb667f';
+(function(){
+  if (sessionStorage.getItem('dashboard_auth') === 'ok') {
+    document.getElementById('login-overlay').style.display = 'none';
+  }
+})();
+
+async function doLogin() {
+  var pwd = document.getElementById('login-pwd').value.trim();
+  if (!pwd) return;
+  var data = new TextEncoder().encode(pwd);
+  var hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  var hashArray = Array.from(new Uint8Array(hashBuffer));
+  var hash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  if (hash === AUTH_HASH) {
+    sessionStorage.setItem('dashboard_auth', 'ok');
+    document.getElementById('login-overlay').style.display = 'none';
+    document.getElementById('login-err').style.display = 'none';
+  } else {
+    document.getElementById('login-err').style.display = 'block';
+    document.getElementById('login-pwd').value = '';
+    document.getElementById('login-pwd').focus();
+  }
+}
+
+// Tab switching
 document.querySelectorAll('.nav-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
