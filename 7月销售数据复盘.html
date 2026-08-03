@@ -386,14 +386,14 @@ html, body {
         <div class="metric-delta">毛利率约 1.1%</div>
       </div>
       <div class="metric-card blue">
-        <div class="metric-label">百亿补贴返款（已确认）</div>
+        <div class="metric-label">百亿补贴返款</div>
         <div class="metric-value">11.4<span class="metric-unit">万</span></div>
-        <div class="metric-delta">平台返款 · 计入营业外收入</div>
+        <div class="metric-delta">平台返款 · 已确认</div>
       </div>
       <div class="metric-card coral">
         <div class="metric-label">税前利润总额</div>
-        <div class="metric-value" style="color:var(--accent-coral);">-41.0<span class="metric-unit">万</span></div>
-        <div class="metric-delta down">亏损 · 利润率 -9.68%</div>
+        <div class="metric-value" style="color:var(--accent-coral);">-37.4<span class="metric-unit">万</span></div>
+        <div class="metric-delta down">亏损 · 利润率 -8.83%</div>
       </div>
     </div>
 
@@ -487,7 +487,7 @@ html, body {
     <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:28px;flex:1;" class="reveal">
       <div class="card">
         <div class="card-title">上月 vs 本月销售额对比（万元）</div>
-        <svg width="100%" height="380" viewBox="0 0 1000 500" style="margin-top:20px;">
+        <svg width="100%" height="380" viewBox="0 0 1000 380" style="margin-top:20px;">
           <!-- PDD -->
           <rect x="50"  y="40"  width="90" height="380" rx="6" fill="rgba(77,159,255,0.15)"  stroke="rgba(77,159,255,0.4)"  stroke-width="2"/>
           <text x="95"  y="30" text-anchor="middle" fill="#4d9fff" font-family="Space Grotesk" font-size="26" font-weight="700">550</text>
@@ -961,8 +961,8 @@ html, body {
             <tr><td style="padding-left:28px;">国税税费</td><td class="num">13,301</td><td class="num">0.31%</td><td class="num">100%</td></tr>
             <tr><td style="padding-left:28px;">其他管理费</td><td class="num">8,624</td><td class="num">0.20%</td><td class="num">4.57%</td></tr>
             <tr class="total-row"><td>三、营业利润</td><td class="num negative">-436,540</td><td class="num negative">-10.31%</td><td class="num">—</td></tr>
-            <tr class="section-row"><td>加：营业外收入</td><td class="num">26,786</td><td class="num">1.48%</td><td class="num">—</td></tr>
-            <tr class="total-row"><td>四、税前利润总额</td><td class="num negative">-409,764</td><td class="num negative">-9.68%</td><td class="num">—</td></tr>
+            <tr class="section-row"><td>加：营业外收入</td><td class="num">62,786</td><td class="num">1.48%</td><td class="num">—</td></tr>
+            <tr class="total-row"><td>四、税前利润总额</td><td class="num negative">-373,764</td><td class="num negative">-8.83%</td><td class="num">—</td></tr>
           </tbody>
         </table>
       </div>
@@ -987,10 +987,10 @@ html, body {
             <rect x="320" y="310" width="50" height="28" rx="6" fill="rgba(255,184,77,0.2)" stroke="#ffb84d" stroke-width="2"/>
             <text x="345" y="352" text-anchor="middle" fill="#ffb84d" font-family="Space Grotesk" font-size="14" font-weight="700">-20.1万</text>
             <text x="345" y="370" text-anchor="middle" fill="#8b95a8" font-family="Noto Sans SC" font-size="12">固定费用</text>
-            <rect x="390" y="296" width="50" height="6" rx="3" fill="rgba(0,217,165,0.2)" stroke="#00d9a5" stroke-width="2"/>
-            <text x="415" y="288" text-anchor="middle" fill="#00d9a5" font-family="Space Grotesk" font-size="14" font-weight="700">+2.7万</text>
+            <rect x="390" y="296" width="50" height="14" rx="6" fill="rgba(0,217,165,0.2)" stroke="#00d9a5" stroke-width="2"/>
+            <text x="415" y="288" text-anchor="middle" fill="#00d9a5" font-family="Space Grotesk" font-size="14" font-weight="700">+6.3万</text>
             <text x="415" y="330" text-anchor="middle" fill="#8b95a8" font-family="Noto Sans SC" font-size="12">营业外</text>
-            <text x="230" y="372" text-anchor="middle" fill="#ff5e6c" font-family="Space Grotesk" font-size="18" font-weight="700">税前利润 = -41.0万</text>
+            <text x="230" y="372" text-anchor="middle" fill="#ff5e6c" font-family="Space Grotesk" font-size="18" font-weight="700">税前利润 = -37.4万</text>
           </svg>
         </div>
 
@@ -1042,24 +1042,24 @@ html, body {
         <div class="card-title">盈亏平衡推导过程</div>
         <div style="display:flex;flex-direction:column;gap:18px;margin-top:20px;">
           <div style="padding:20px;background:var(--accent-teal-dim);border-radius:var(--radius-sm);border-left:4px solid var(--accent-teal);">
-            <div style="font-size:15px;color:var(--text-muted);margin-bottom:6px;">Step 1 · 毛利率（含补贴调整）</div>
-            <div style="font-family:var(--font-num);font-size:24px;font-weight:700;color:var(--accent-teal);">162,000 ÷ 4,340,000 = 3.7%</div>
-            <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;">毛利÷销售额（补贴11.4万计入后）</div>
+            <div style="font-size:15px;color:var(--text-muted);margin-bottom:6px;">Step 1 · 毛利率</div>
+            <div style="font-family:var(--font-num);font-size:24px;font-weight:700;color:var(--accent-teal);">198,000 ÷ 4,340,000 = 4.5%</div>
+            <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;">毛利÷销售额（含补贴调整后）</div>
           </div>
           <div style="padding:20px;background:var(--accent-blue-dim);border-radius:var(--radius-sm);border-left:4px solid var(--accent-blue);">
             <div style="font-size:15px;color:var(--text-muted);margin-bottom:6px;">Step 2 · 扣除平台费用</div>
-            <div style="font-family:var(--font-num);font-size:24px;font-weight:700;color:var(--accent-blue);">3.7% − 0.6% = 3.1%</div>
+            <div style="font-family:var(--font-num);font-size:24px;font-weight:700;color:var(--accent-blue);">4.5% − 0.6% = 3.9%</div>
             <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;">平台佣金占销售额约0.6%</div>
           </div>
           <div style="padding:20px;background:var(--accent-amber-dim);border-radius:var(--radius-sm);border-left:4px solid var(--accent-amber);">
             <div style="font-size:15px;color:var(--text-muted);margin-bottom:6px;">Step 3 · 扣除运费</div>
-            <div style="font-family:var(--font-num);font-size:24px;font-weight:700;color:var(--accent-amber);">3.1% − 0.7% = 2.4%</div>
+            <div style="font-family:var(--font-num);font-size:24px;font-weight:700;color:var(--accent-amber);">3.9% − 0.7% = 3.2%</div>
             <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;">物流费用占销售额约0.7%</div>
           </div>
           <div style="padding:20px;background:var(--accent-coral-dim);border-radius:var(--radius-sm);border-left:4px solid var(--accent-coral);">
             <div style="font-size:15px;color:var(--text-muted);margin-bottom:6px;">Step 4 · 保本销售额</div>
-            <div style="font-family:var(--font-num);font-size:32px;font-weight:700;color:var(--accent-coral);">200,000 ÷ 2.4% = 8,330,000</div>
-            <div style="font-size:16px;color:var(--text-secondary);margin-top:6px;">固定成本20万 ÷ 净利率2.4% = <strong style="color:var(--accent-coral);">833万</strong></div>
+            <div style="font-family:var(--font-num);font-size:32px;font-weight:700;color:var(--accent-coral);">200,000 ÷ 3.2% = 6,250,000</div>
+            <div style="font-size:16px;color:var(--text-secondary);margin-top:6px;">固定成本20万 ÷ 净利率3.2% = <strong style="color:var(--accent-coral);">625万</strong></div>
           </div>
         </div>
       </div>
@@ -1069,19 +1069,17 @@ html, body {
           <div class="card-title">当前 vs 保本点</div>
           <svg width="100%" height="240" viewBox="0 0 460 240" style="margin-top:20px;">
             <line x1="40" y1="70" x2="420" y2="70" stroke="#ff5e6c" stroke-width="2.5" stroke-dasharray="8 5"/>
-            <text x="424" y="76" fill="#ff5e6c" font-family="Space Grotesk" font-size="16" font-weight="600">833万</text>
+            <text x="424" y="76" fill="#ff5e6c" font-family="Space Grotesk" font-size="16" font-weight="600">625万</text>
             <text x="40" y="58" fill="#ff5e6c" font-family="Noto Sans SC" font-size="14">保本线</text>
             <rect x="80" y="112" width="120" height="98" rx="8" fill="rgba(255,184,77,0.2)" stroke="#ffb84d" stroke-width="2"/>
             <text x="140" y="166" text-anchor="middle" fill="#ffb84d" font-family="Space Grotesk" font-size="28" font-weight="700">434万</text>
             <text x="140" y="188" text-anchor="middle" fill="#8b95a8" font-family="Noto Sans SC" font-size="13">当前销售额</text>
             <rect x="200" y="70" width="100" height="42" rx="6" fill="rgba(255,94,108,0.15)" stroke="#ff5e6c" stroke-width="2" stroke-dasharray="5 4"/>
-            <text x="250" y="96" text-anchor="middle" fill="#ff5e6c" font-family="Space Grotesk" font-size="18" font-weight="700">缺口399万</text>
-            <rect x="290" y="84" width="100" height="98" rx="8" fill="rgba(77,159,255,0.15)" stroke="#4d9fff" stroke-width="2"/>
-            <text x="340" y="138" text-anchor="middle" fill="#4d9fff" font-family="Space Grotesk" font-size="28" font-weight="700">481万</text>
-            <text x="340" y="160" text-anchor="middle" fill="#8b95a8" font-family="Noto Sans SC" font-size="13">8月计划</text>
-            <rect x="390" y="105" width="40" height="5" rx="2" fill="rgba(255,94,108,0.3)"/>
-            <text x="410" y="118" text-anchor="middle" fill="#ff5e6c" font-family="Space Grotesk" font-size="13" font-weight="600">需增399万</text>
-            <text x="250" y="228" text-anchor="middle" fill="#ff5e6c" font-family="Noto Sans SC" font-size="14">8月计划仍低于保本线，需追加预算或调高毛利</text>
+            <text x="250" y="96" text-anchor="middle" fill="#ff5e6c" font-family="Space Grotesk" font-size="18" font-weight="700">缺口191万</text>
+            <rect x="310" y="84" width="100" height="126" rx="8" fill="rgba(77,159,255,0.15)" stroke="#4d9fff" stroke-width="2"/>
+            <text x="360" y="142" text-anchor="middle" fill="#4d9fff" font-family="Space Grotesk" font-size="24" font-weight="700">731万</text>
+            <text x="360" y="164" text-anchor="middle" fill="#8b95a8" font-family="Noto Sans SC" font-size="13">8月计划</text>
+            <text x="250" y="228" text-anchor="middle" fill="#5a6478" font-family="Noto Sans SC" font-size="14">8月计划已超过保本线，需全力达成</text>
           </svg>
         </div>
 
@@ -1090,23 +1088,23 @@ html, body {
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
             <div style="padding:18px;background:var(--accent-coral-dim);border-radius:var(--radius-sm);">
               <div style="font-size:14px;color:var(--text-muted);">当前缺口</div>
-              <div style="font-family:var(--font-num);font-size:36px;font-weight:700;color:var(--accent-coral);">399<span style="font-size:18px;">万</span></div>
+              <div style="font-family:var(--font-num);font-size:36px;font-weight:700;color:var(--accent-coral);">191<span style="font-size:18px;">万</span></div>
               <div style="font-size:13px;color:var(--text-secondary);">距保本点差额</div>
             </div>
-            <div style="padding:18px;background:var(--accent-coral-dim);border-radius:var(--radius-sm);">
-              <div style="font-size:14px;color:var(--text-muted);">8月计划仍差</div>
-              <div style="font-family:var(--font-num);font-size:36px;font-weight:700;color:var(--accent-coral);">399<span style="font-size:18px;">万</span></div>
-              <div style="font-size:13px;color:var(--text-secondary);">低于保本线42%</div>
+            <div style="padding:18px;background:var(--accent-teal-dim);border-radius:var(--radius-sm);">
+              <div style="font-size:14px;color:var(--text-muted);">8月计划超额</div>
+              <div style="font-family:var(--font-num);font-size:36px;font-weight:700;color:var(--accent-teal);">106<span style="font-size:18px;">万</span></div>
+              <div style="font-size:13px;color:var(--text-secondary);">超过保本线17%</div>
             </div>
-            <div style="padding:18px;background:var(--accent-amber-dim);border-radius:var(--radius-sm);">
-              <div style="font-size:14px;color:var(--text-muted);">8月计划增幅</div>
-              <div style="font-family:var(--font-num);font-size:36px;font-weight:700;color:var(--accent-amber);">10.8<span style="font-size:18px;">%</span></div>
+            <div style="padding:18px;background:var(--accent-blue-dim);border-radius:var(--radius-sm);">
+              <div style="font-size:14px;color:var(--text-muted);">需提升幅度</div>
+              <div style="font-family:var(--font-num);font-size:36px;font-weight:700;color:var(--accent-blue);">68.4<span style="font-size:18px;">%</span></div>
               <div style="font-size:13px;color:var(--text-secondary);">7月→8月销售增幅</div>
             </div>
             <div style="padding:18px;background:var(--accent-amber-dim);border-radius:var(--radius-sm);">
               <div style="font-size:14px;color:var(--text-muted);">净利率要求</div>
-              <div style="font-family:var(--font-num);font-size:36px;font-weight:700;color:var(--accent-amber);">2.4<span style="font-size:18px;">%</span></div>
-              <div style="font-size:13px;color:var(--text-secondary);">实际需达到的净利率</div>
+              <div style="font-family:var(--font-num);font-size:36px;font-weight:700;color:var(--accent-amber);">3.2<span style="font-size:18px;">%</span></div>
+              <div style="font-size:13px;color:var(--text-secondary);">维持不变的净利率</div>
             </div>
           </div>
         </div>
@@ -1129,80 +1127,115 @@ html, body {
       <span class="slide-subtitle">各店铺目标分解 · 7月实际 vs 8月计划</span>
     </div>
 
-    <div class="reveal" style="display:grid;grid-template-columns:2.4fr 1fr;gap:24px;flex:1;">
+    <div class="reveal" style="display:grid;grid-template-columns:2fr 1fr;gap:28px;flex:1;">
       <div class="card">
-        <div class="card-title">8月销售目标 · 类目×店铺分解</div>
-        <table class="data-table" style="font-size:13px;">
+        <table class="data-table">
           <thead>
             <tr>
-              <th>类目</th>
-              <th style="text-align:right;">淘宝</th>
-              <th style="text-align:right;">AOC</th>
-              <th style="text-align:right;">PDD嘉合</th>
-              <th style="text-align:right;">PDD华硕</th>
-              <th style="text-align:right;">PDD铭瑄</th>
-              <th style="text-align:right;">抖音嘉合</th>
-              <th style="text-align:right;">抖音三超</th>
-              <th style="text-align:right;">抖音速睿达</th>
-              <th style="text-align:right;">闲鱼</th>
-              <th style="text-align:right;">合计</th>
+              <th>店铺</th>
+              <th style="text-align:right;">7月实际(万)</th>
+              <th style="text-align:right;">8月计划(万)</th>
+              <th style="text-align:right;">目标增幅</th>
+              <th style="text-align:right;">毛利率</th>
+              <th>运营</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td>板U</td><td class="num">12,000</td><td class="num">0</td><td class="num">1,300,000</td><td class="num">1,300,000</td><td class="num">0</td><td class="num">300,000</td><td class="num">0</td><td class="num">0</td><td class="num">3,000</td><td class="num" style="font-weight:700;color:var(--text-primary);">3,023,000</td></tr>
-            <tr><td>整机</td><td class="num">0</td><td class="num">0</td><td class="num">100,000</td><td class="num">500,000</td><td class="num">0</td><td class="num">100,000</td><td class="num">100,000</td><td class="num">0</td><td class="num">0</td><td class="num" style="font-weight:700;color:var(--text-primary);">800,000</td></tr>
-            <tr><td>显卡</td><td class="num">0</td><td class="num">0</td><td class="num">100,000</td><td class="num">100,000</td><td class="num">0</td><td class="num">100,000</td><td class="num">0</td><td class="num">0</td><td class="num">3,000</td><td class="num" style="font-weight:700;color:var(--text-primary);">303,000</td></tr>
-            <tr><td>显示器</td><td class="num">10,000</td><td class="num">100,000</td><td class="num">0</td><td class="num">100,000</td><td class="num">0</td><td class="num">100,000</td><td class="num">0</td><td class="num">50,000</td><td class="num">4,000</td><td class="num" style="font-weight:700;color:var(--text-primary);">364,000</td></tr>
-            <tr><td>其他</td><td class="num">20,000</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">300,000</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num" style="font-weight:700;color:var(--text-primary);">320,000</td></tr>
-            <tr class="total-row"><td>合计销售额</td><td class="num">15万</td><td class="num">10万</td><td class="num">150万</td><td class="num">200万</td><td class="num">0</td><td class="num">90万</td><td class="num">10万</td><td class="num">5万</td><td class="num">1万</td><td class="num" style="font-size:18px;color:var(--accent-blue);">481万</td></tr>
-            <tr style="background:rgba(255,184,77,0.08);"><td>毛利润</td><td class="num">5,000</td><td class="num">500</td><td class="num">10,000</td><td class="num">20,000</td><td class="num">0</td><td class="num">9,000</td><td class="num">1,000</td><td class="num">500</td><td class="num negative">-1,000</td><td class="num" style="font-size:14px;color:var(--accent-amber);">45,000</td></tr>
-            <tr style="background:rgba(255,184,77,0.08);"><td>利润率</td><td class="num">3.33%</td><td class="num">0.50%</td><td class="num">0.67%</td><td class="num">1.00%</td><td class="num">0.00%</td><td class="num">1.00%</td><td class="num">1.00%</td><td class="num">1.00%</td><td class="num negative">-10.00%</td><td class="num" style="font-size:14px;color:var(--accent-amber);font-weight:700;">0.94%</td></tr>
-            <tr><td>运营</td><td>徐康</td><td>吴冬泉</td><td>周凯峰</td><td>周凯峰</td><td>周凯峰</td><td>王盼</td><td>王盼</td><td>吴冬泉</td><td>刘杭</td><td>—</td></tr>
+            <tr>
+              <td>淘宝</td><td class="num">9.5</td><td class="num">20</td>
+              <td class="num delta-up">↑110.5%</td>
+              <td class="num">4.00%</td><td>徐康</td>
+            </tr>
+            <tr>
+              <td>AOC</td><td class="num">—</td><td class="num">10</td>
+              <td class="num" style="color:var(--text-muted);">新目标</td>
+              <td class="num">0.50%</td><td>吴冬泉</td>
+            </tr>
+            <tr>
+              <td>嘉合(PDD)</td><td class="num">198.9</td><td class="num">240</td>
+              <td class="num delta-up">↑20.7%</td>
+              <td class="num">0.42%</td><td>周凯峰</td>
+            </tr>
+            <tr>
+              <td>华硕(PDD)</td><td class="num">206.9</td><td class="num">320</td>
+              <td class="num delta-up">↑54.7%</td>
+              <td class="num">0.63%</td><td>周凯峰</td>
+            </tr>
+            <tr>
+              <td>铭瑄</td><td class="num">—</td><td class="num">55</td>
+              <td class="num" style="color:var(--text-muted);">新目标</td>
+              <td class="num">1.82%</td><td>周凯峰</td>
+            </tr>
+            <tr>
+              <td>抖音嘉合</td><td class="num">60.9</td><td class="num">40</td>
+              <td class="num delta-down">↓34.3%</td>
+              <td class="num">1.00%</td><td>王盼</td>
+            </tr>
+            <tr>
+              <td>抖音三超</td><td class="num">—</td><td class="num">40</td>
+              <td class="num" style="color:var(--text-muted);">新目标</td>
+              <td class="num">1.00%</td><td>王盼</td>
+            </tr>
+            <tr>
+              <td>抖音速睿达</td><td class="num">—</td><td class="num">5</td>
+              <td class="num" style="color:var(--text-muted);">新目标</td>
+              <td class="num">1.00%</td><td>吴冬泉</td>
+            </tr>
+            <tr>
+              <td>闲鱼</td><td class="num">—</td><td class="num">1</td>
+              <td class="num" style="color:var(--text-muted);">新目标</td>
+              <td class="num negative">-10.00%</td><td>刘杭</td>
+            </tr>
+            <tr class="total-row">
+              <td>合计</td><td class="num">434</td><td class="num">731</td>
+              <td class="num delta-up" style="color:var(--accent-teal);">↑68.4%</td>
+              <td class="num">0.77%</td><td>—</td>
+            </tr>
           </tbody>
         </table>
       </div>
 
-      <div style="display:flex;flex-direction:column;gap:16px;">
+      <div style="display:flex;flex-direction:column;gap:20px;">
         <div class="card">
           <div class="card-title">目标总览</div>
-          <div style="text-align:center;padding:12px 0;">
-            <div style="font-family:var(--font-num);font-size:54px;font-weight:900;color:var(--accent-blue);line-height:1;">481<span style="font-size:22px;color:var(--text-secondary);">万</span></div>
-            <div style="font-size:15px;color:var(--text-secondary);margin-top:6px;">8月总销售目标</div>
+          <div style="text-align:center;padding:16px 0;">
+            <div style="font-family:var(--font-num);font-size:60px;font-weight:900;color:var(--accent-blue);line-height:1;">731<span style="font-size:24px;color:var(--text-secondary);">万</span></div>
+            <div style="font-size:16px;color:var(--text-secondary);margin-top:8px;">8月总销售目标</div>
           </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
-            <div style="text-align:center;padding:12px;background:var(--accent-amber-dim);border-radius:8px;">
-              <div style="font-family:var(--font-num);font-size:24px;font-weight:700;color:var(--accent-amber);">4.5万</div>
-              <div style="font-size:12px;color:var(--text-secondary);">毛利目标</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;">
+            <div style="text-align:center;padding:14px;background:var(--accent-teal-dim);border-radius:10px;">
+              <div style="font-family:var(--font-num);font-size:28px;font-weight:700;color:var(--accent-teal);">5.6万</div>
+              <div style="font-size:13px;color:var(--text-secondary);">毛利目标</div>
             </div>
-            <div style="text-align:center;padding:12px;background:var(--accent-coral-dim);border-radius:8px;">
-              <div style="font-family:var(--font-num);font-size:24px;font-weight:700;color:var(--accent-coral);">0.94%</div>
-              <div style="font-size:12px;color:var(--text-secondary);">综合毛利率</div>
+            <div style="text-align:center;padding:14px;background:var(--accent-amber-dim);border-radius:10px;">
+              <div style="font-family:var(--font-num);font-size:28px;font-weight:700;color:var(--accent-amber);">0.77%</div>
+              <div style="font-size:13px;color:var(--text-secondary);">综合毛利率</div>
             </div>
           </div>
         </div>
 
         <div class="card" style="flex:1;">
           <div class="card-title">可行性评估</div>
-          <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px;">
-            <div style="padding:10px;border-radius:6px;background:var(--accent-teal-dim);font-size:13px;color:var(--text-secondary);">
-              <strong style="color:var(--accent-teal);">✓ 超保本线：</strong>481万 &lt; 625万保本点
+          <div style="display:flex;flex-direction:column;gap:12px;margin-top:12px;">
+            <div style="padding:14px;border-radius:8px;background:var(--accent-teal-dim);font-size:15px;color:var(--text-secondary);">
+              <strong style="color:var(--accent-teal);">✓ 超保本线：</strong>731万 &gt; 625万保本点，超额17%
             </div>
-            <div style="padding:10px;border-radius:6px;background:var(--accent-coral-dim);font-size:13px;color:var(--text-secondary);">
-              <strong style="color:var(--accent-coral);">⚠ 差距大：</strong>距保本还差144万，需追加预算或调高毛利
+            <div style="padding:14px;border-radius:8px;background:var(--accent-amber-dim);font-size:15px;color:var(--text-secondary);">
+              <strong style="color:var(--accent-amber);">⚠ 增幅挑战：</strong>需在1个月内提升68.4%，压力极大
             </div>
-            <div style="padding:10px;border-radius:6px;background:var(--accent-amber-dim);font-size:13px;color:var(--text-secondary);">
-              <strong style="color:var(--accent-amber);">⚠ 毛利结构：</strong>闲鱼-10%毛利率拖累，PDD铭瑄未规划
+            <div style="padding:14px;border-radius:8px;background:var(--accent-coral-dim);font-size:15px;color:var(--text-secondary);">
+              <strong style="color:var(--accent-coral);">⚠ 毛利结构：</strong>闲鱼-10%毛利率拖累，嘉合仅0.42%
             </div>
-            <div style="padding:10px;border-radius:6px;background:var(--accent-blue-dim);font-size:13px;color:var(--text-secondary);">
-              <strong style="color:var(--accent-blue);">→ 关键店：</strong>PDD华硕200万(42%)+PDD嘉合150万(31%)=73%目标
+            <div style="padding:14px;border-radius:8px;background:var(--accent-blue-dim);font-size:15px;color:var(--text-secondary);">
+              <strong style="color:var(--accent-blue);">→ 策略建议：</strong>华硕PDD承担44%目标（320万），是8月成败关键
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="reveal" style="margin-top:16px;padding:14px 18px;background:var(--bg-card);border-radius:var(--radius-sm);border:1px solid var(--border-subtle);font-size:14px;color:var(--text-muted);">
-      <strong style="color:var(--accent-teal);">备注：</strong>毛利润计算包含进货成本、运费、平台费用、推广费用、装机费用。目标金额单位为元。
+    <div class="reveal" style="margin-top:20px;padding:16px 20px;background:var(--bg-card);border-radius:var(--radius-sm);border:1px solid var(--border-subtle);font-size:15px;color:var(--text-muted);">
+      备注：计算毛利润时成本项包括进货成本、运费、平台费用、推广费用、装机费用。
     </div>
   </div>
 </div>
@@ -1275,7 +1308,7 @@ html, body {
             <div style="font-family:var(--font-num);font-size:28px;font-weight:700;color:var(--accent-teal);">A</div>
             <div>
               <div style="font-size:19px;font-weight:600;color:var(--text-primary);margin-bottom:6px;">提升毛利率至3%以上</div>
-              <div style="font-size:15px;color:var(--text-secondary);line-height:1.5;">优化进货渠道、调整定价策略、减少低毛利SKU。8月计划毛利率0.94%仍远低于3.2%保本要求，需重点提升嘉合(0.42%)和华硕(0.63%)毛利空间。</div>
+              <div style="font-size:15px;color:var(--text-secondary);line-height:1.5;">优化进货渠道、调整定价策略、减少低毛利SKU。8月计划毛利率0.77%仍远低于3.2%保本要求，需重点提升嘉合(0.42%)和华硕(0.63%)毛利空间。</div>
             </div>
           </div>
         </div>
