@@ -83,8 +83,7 @@ html, body {
 
 /* === 导航控件（自动隐藏 + 可拖动） === */
 .nav-controls {
-  position: fixed; bottom: 20px; left: 50%;
-  transform: translateX(-50%);
+  position: fixed; top: 20px; right: 30px;
   display: flex; align-items: center; gap: 16px;
   z-index: 1000;
   background: rgba(22,27,42,0.85);
@@ -1449,9 +1448,9 @@ nav.addEventListener('mousedown', function(e) {
   if (e.target === pinBtn) return;
   dragging = true; nav.classList.add('dragging');
   dragStartX = e.clientX; dragStartY = e.clientY;
-  navStartX = nav.offsetLeft; navStartY = nav.offsetTop;
-  nav.style.transform = 'none';
-  nav.style.left = navStartX + 'px'; nav.style.top = navStartY + 'px';
+  var rect = nav.getBoundingClientRect();
+  navStartX = rect.left; navStartY = rect.top;
+  nav.style.left = navStartX + 'px'; nav.style.top = navStartY + 'px'; nav.style.right = 'auto';
   e.preventDefault();
 });
 document.addEventListener('mousemove', function(e) {
