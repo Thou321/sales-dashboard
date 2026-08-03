@@ -75,7 +75,7 @@ html, body {
   pointer-events: auto;
 }
 
-/* === 导航控件 === */
+/* === 导航控件（自动隐藏 + 可拖动） === */
 .nav-controls {
   position: fixed; bottom: 20px; left: 50%;
   transform: translateX(-50%);
@@ -86,7 +86,25 @@ html, body {
   border: 1px solid var(--border-subtle);
   border-radius: 40px;
   padding: 8px 20px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  cursor: grab;
+  user-select: none;
 }
+.nav-controls.visible, .nav-controls:hover { opacity: 1; }
+.nav-controls.dragging { cursor: grabbing; opacity: 1; }
+.nav-controls .toggle-btn {
+  position: absolute; left: -46px; top: 50%; transform: translateY(-50%);
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(22,27,42,0.85); border: 1px solid var(--border-subtle);
+  color: var(--text-secondary); cursor: pointer; display: flex;
+  align-items: center; justify-content: center;
+  font-size: 14px; transition: all 0.3s;
+  backdrop-filter: blur(12px); opacity: 0;
+}
+.nav-controls:not(.visible) .toggle-btn { opacity: 0.6; }
+.nav-controls:hover .toggle-btn { opacity: 1; }
+.nav-controls.pinned .toggle-btn { background: var(--accent-teal-dim); color: var(--accent-teal); }
 .nav-btn {
   background: none; border: none; color: var(--text-secondary);
   cursor: pointer; font-size: 20px; padding: 6px 12px;
@@ -181,12 +199,12 @@ html, body {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
-  padding: 28px 32px;
+  padding: 32px 36px;
   position: relative; overflow: hidden;
 }
 .metric-card::before {
   content: ''; position: absolute; top: 0; left: 0;
-  width: 5px; height: 100%; border-radius: 5px 0 0 5px;
+  width: 6px; height: 100%; border-radius: 6px 0 0 6px;
 }
 .metric-card.teal::before { background: var(--accent-teal); }
 .metric-card.coral::before { background: var(--accent-coral); }
@@ -194,10 +212,10 @@ html, body {
 .metric-card.blue::before { background: var(--accent-blue); }
 .metric-card.purple::before { background: var(--accent-purple); }
 
-.metric-label { font-size: 17px; color: var(--text-secondary); margin-bottom: 10px; }
-.metric-value { font-family: var(--font-num); font-size: 52px; font-weight: 700; color: var(--text-primary); line-height: 1.1; }
-.metric-unit { font-size: 22px; font-weight: 400; color: var(--text-secondary); margin-left: 6px; }
-.metric-delta { font-family: var(--font-num); font-size: 16px; margin-top: 8px; }
+.metric-label { font-size: 18px; color: var(--text-secondary); margin-bottom: 12px; font-weight:500; }
+.metric-value { font-family: var(--font-num); font-size: 64px; font-weight: 800; color: var(--text-primary); line-height: 1.05; letter-spacing: -0.02em; text-shadow: 0 2px 12px rgba(0,0,0,0.3); }
+.metric-unit { font-size: 24px; font-weight: 400; color: var(--text-secondary); margin-left: 8px; }
+.metric-delta { font-family: var(--font-num); font-size: 17px; margin-top: 10px; line-height:1.4; }
 .metric-delta.up { color: var(--accent-teal); }
 .metric-delta.down { color: var(--accent-coral); }
 
@@ -222,17 +240,18 @@ html, body {
 .bar-delta.down { color: var(--accent-coral); }
 
 /* === 数据表格（字号放大） === */
-.data-table { width: 100%; border-collapse: collapse; font-size: 17px; }
+.data-table { width: 100%; border-collapse: collapse; font-size: 20px; }
 .data-table th {
-  text-align: left; padding: 12px 16px;
+  text-align: left; padding: 14px 16px;
   color: var(--text-secondary); font-weight: 500;
   border-bottom: 1px solid var(--border-strong);
-  font-size: 15px; text-transform: uppercase; letter-spacing: 0.05em;
+  font-size: 16px; text-transform: uppercase; letter-spacing: 0.05em;
 }
 .data-table td {
-  padding: 12px 16px;
+  padding: 14px 16px;
   border-bottom: 1px solid var(--border-subtle);
   color: var(--text-primary);
+  font-size: 18px;
 }
 .data-table td.num { font-family: var(--font-num); text-align: right; }
 .data-table tr:hover td { background: rgba(255,255,255,0.02); }
@@ -1378,7 +1397,8 @@ html, body {
 </div><!-- /#stage -->
 </div><!-- /#stage-container -->
 
-<div class="nav-controls">
+<div class="nav-controls visible">
+  <span class="toggle-btn" id="pin-btn" title="固定/取消固定">📌</span>
   <button class="nav-btn" id="prev-btn" onclick="navigate(-1)">◀</button>
   <div style="display:flex;gap:6px;align-items:center;" id="nav-dots"></div>
   <span class="nav-indicator" id="nav-indicator">1 / 10</span>
@@ -1395,6 +1415,51 @@ function scaleStage() {
 }
 scaleStage();
 window.addEventListener('resize', scaleStage);
+
+// ===== 导航自动隐藏 + 拖拽 + 固定 =====
+var nav = document.querySelector('.nav-controls');
+var pinBtn = document.getElementById('pin-btn');
+var hideTimer = null;
+var pinned = false;
+var dragging = false, dragStartX, dragStartY, navStartX, navStartY;
+
+function showNav() {
+  nav.classList.add('visible');
+  clearTimeout(hideTimer);
+  if (!pinned) hideTimer = setTimeout(function() { nav.classList.remove('visible'); }, 3000);
+}
+function togglePin() {
+  pinned = !pinned;
+  nav.classList.toggle('pinned', pinned);
+  pinBtn.textContent = pinned ? '📌' : '📍';
+  if (pinned) { nav.classList.add('visible'); clearTimeout(hideTimer); }
+  else { showNav(); }
+}
+pinBtn.addEventListener('click', function(e) { e.stopPropagation(); togglePin(); });
+showNav();
+
+// Drag
+nav.addEventListener('mousedown', function(e) {
+  if (e.target === pinBtn) return;
+  dragging = true; nav.classList.add('dragging');
+  dragStartX = e.clientX; dragStartY = e.clientY;
+  navStartX = nav.offsetLeft; navStartY = nav.offsetTop;
+  nav.style.transform = 'none';
+  nav.style.left = navStartX + 'px'; nav.style.top = navStartY + 'px';
+  e.preventDefault();
+});
+document.addEventListener('mousemove', function(e) {
+  if (!dragging) return;
+  nav.style.left = (navStartX + e.clientX - dragStartX) + 'px';
+  nav.style.top = (navStartY + e.clientY - dragStartY) + 'px';
+});
+document.addEventListener('mouseup', function() {
+  if (dragging) { dragging = false; nav.classList.remove('dragging'); showNav(); }
+});
+
+// Show on mouse move
+document.addEventListener('mousemove', function() { if (!dragging) showNav(); });
+document.addEventListener('click', function() { if (!dragging) showNav(); });
 
 var slides = document.querySelectorAll('.slide');
 var currentSlide = 0;
