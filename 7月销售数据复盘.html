@@ -86,49 +86,6 @@ html, body {
   overflow: visible;
 }
 
-/* === 导航控件（自动隐藏 + 可拖动） === */
-.nav-controls {
-  position: fixed; top: 20px; right: 30px;
-  display: flex; align-items: center; gap: 16px;
-  z-index: 1000;
-  background: rgba(22,27,42,0.85);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--border-subtle);
-  border-radius: 40px;
-  padding: 8px 20px;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  cursor: grab;
-  user-select: none;
-}
-.nav-controls.visible, .nav-controls:hover { opacity: 1; }
-.nav-controls.dragging { cursor: grabbing; opacity: 1; }
-.nav-controls .toggle-btn {
-  position: absolute; left: -46px; top: 50%; transform: translateY(-50%);
-  width: 36px; height: 36px; border-radius: 50%;
-  background: rgba(22,27,42,0.85); border: 1px solid var(--border-subtle);
-  color: var(--text-secondary); cursor: pointer; display: flex;
-  align-items: center; justify-content: center;
-  font-size: 14px; transition: all 0.3s;
-  backdrop-filter: blur(12px); opacity: 0;
-}
-.nav-controls:not(.visible) .toggle-btn { opacity: 0.6; }
-.nav-controls:hover .toggle-btn { opacity: 1; }
-.nav-controls.pinned .toggle-btn { background: var(--accent-teal-dim); color: var(--accent-teal); }
-.nav-btn {
-  background: none; border: none; color: var(--text-secondary);
-  cursor: pointer; font-size: 20px; padding: 6px 12px;
-  border-radius: 50%; transition: all 0.3s;
-  font-family: var(--font-num);
-}
-.nav-btn:hover { background: var(--border-subtle); color: var(--text-primary); }
-.nav-indicator {
-  color: var(--text-secondary); font-size: 16px;
-  font-family: var(--font-num); min-width: 60px; text-align: center;
-}
-.nav-dot { cursor: pointer; width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong); transition: all 0.3s; }
-.nav-dot.active { background: var(--accent-teal); width: 24px; border-radius: 4px; }
-
 /* === 动画系统 === */
 .reveal {
   opacity: 0; transform: translateY(30px);
@@ -1402,14 +1359,6 @@ html, body {
 </div><!-- /#stage -->
 </div><!-- /#stage-container -->
 
-<div class="nav-controls visible">
-  <span class="toggle-btn" id="pin-btn" title="固定/取消固定">📌</span>
-  <button class="nav-btn" id="prev-btn" onclick="navigate(-1)">◀</button>
-  <div style="display:flex;gap:6px;align-items:center;" id="nav-dots"></div>
-  <span class="nav-indicator" id="nav-indicator">1 / 10</span>
-  <button class="nav-btn" id="next-btn" onclick="navigate(1)">▶</button>
-</div>
-
 <script>
 function scaleStage() {
   var stage = document.getElementById('stage');
@@ -1418,83 +1367,16 @@ function scaleStage() {
   var scale = Math.min(scaleX, scaleY);
   stage.style.transform = 'scale(' + scale + ')';
 }
-scaleStage();
-window.addEventListener('resize', scaleStage);
-
-// ===== 导航自动隐藏 + 拖拽 + 固定 =====
-var nav = document.querySelector('.nav-controls');
-var pinBtn = document.getElementById('pin-btn');
-var hideTimer = null;
-var pinned = false;
-var dragging = false, dragStartX, dragStartY, navStartX, navStartY;
-
-function showNav() {
-  nav.classList.add('visible');
-  clearTimeout(hideTimer);
-  if (!pinned) hideTimer = setTimeout(function() { nav.classList.remove('visible'); }, 3000);
-}
-function togglePin() {
-  pinned = !pinned;
-  nav.classList.toggle('pinned', pinned);
-  pinBtn.textContent = pinned ? '📌' : '📍';
-  if (pinned) { nav.classList.add('visible'); clearTimeout(hideTimer); }
-  else { showNav(); }
-}
-pinBtn.addEventListener('click', function(e) { e.stopPropagation(); togglePin(); });
-showNav();
-
-// Drag
-nav.addEventListener('mousedown', function(e) {
-  if (e.target === pinBtn) return;
-  dragging = true; nav.classList.add('dragging');
-  dragStartX = e.clientX; dragStartY = e.clientY;
-  var rect = nav.getBoundingClientRect();
-  navStartX = rect.left; navStartY = rect.top;
-  nav.style.left = navStartX + 'px'; nav.style.top = navStartY + 'px'; nav.style.right = 'auto';
-  e.preventDefault();
-});
-document.addEventListener('mousemove', function(e) {
-  if (!dragging) return;
-  nav.style.left = (navStartX + e.clientX - dragStartX) + 'px';
-  nav.style.top = (navStartY + e.clientY - dragStartY) + 'px';
-});
-document.addEventListener('mouseup', function() {
-  if (dragging) { dragging = false; nav.classList.remove('dragging'); showNav(); }
-});
-
-// Show on mouse move
-document.addEventListener('mousemove', function() { if (!dragging) showNav(); });
-document.addEventListener('click', function() { if (!dragging) showNav(); });
-
+// ===== 导航：鼠标滚轮 + 点击 + 键盘 =====
 var slides = document.querySelectorAll('.slide');
 var currentSlide = 0;
 var totalSlides = slides.length;
-var editMode = false;
-
-var navDots = document.getElementById('nav-dots');
-for (var i = 0; i < totalSlides; i++) {
-  (function(idx) {
-    var dot = document.createElement('div');
-    dot.className = 'nav-dot' + (idx === 0 ? ' active' : '');
-    dot.onclick = function() { goToSlide(idx); };
-    navDots.appendChild(dot);
-  })(i);
-}
-
-function updateNavDots() {
-  var dots = navDots.querySelectorAll('.nav-dot');
-  for (var i = 0; i < dots.length; i++) {
-    dots[i].className = 'nav-dot' + (i === currentSlide ? ' active' : '');
-  }
-  document.getElementById('nav-indicator').textContent = (currentSlide + 1) + ' / ' + totalSlides;
-}
 
 function goToSlide(index) {
   if (index < 0 || index >= totalSlides) return;
   slides[currentSlide].classList.remove('active');
   currentSlide = index;
   slides[currentSlide].classList.add('active');
-  updateNavDots();
   var reveals = slides[currentSlide].querySelectorAll('.reveal, .bar-grow, .donut-anim, .funnel-bar, .progress-fill');
   reveals.forEach(function(el) {
     el.style.transition = 'none';
@@ -1505,53 +1387,47 @@ function goToSlide(index) {
 
 function navigate(dir) {
   var next = currentSlide + dir;
-  if (next >= 0 && next < totalSlides) {
-    goToSlide(next);
-  }
+  if (next >= 0 && next < totalSlides) goToSlide(next);
 }
 
+// 鼠标滚轮翻页（检测是否在可滚动区域内）
+document.addEventListener('wheel', function(e) {
+  var target = e.target.closest('.slide-inner');
+  if (target) {
+    var atTop = target.scrollTop <= 0;
+    var atBottom = target.scrollTop + target.clientHeight >= target.scrollHeight - 2;
+    if (e.deltaY > 0 && !atBottom) return; // scroll down inside slide
+    if (e.deltaY < 0 && !atTop) return;    // scroll up inside slide
+  }
+  e.preventDefault();
+  navigate(e.deltaY > 0 ? 1 : -1);
+}, { passive: false });
+
+// 点击翻页（点击幻灯片空白区域 → 下一页）
+document.addEventListener('click', function(e) {
+  if (e.target.closest('button') || e.target.closest('a') || e.target.closest('[contenteditable]')) return;
+  var slide = e.target.closest('.slide');
+  if (slide && !e.target.closest('.slide-inner > *')) {
+    navigate(1);
+  }
+});
+
+// 键盘翻页
 document.addEventListener('keydown', function(e) {
   if (e.target.contentEditable === 'true') return;
-  switch(e.key) {
-    case 'ArrowRight':
-    case ' ':
-    case 'PageDown':
-      e.preventDefault(); navigate(1); break;
-    case 'ArrowLeft':
-    case 'PageUp':
-      e.preventDefault(); navigate(-1); break;
-    case 'Home': goToSlide(0); break;
-    case 'End': goToSlide(totalSlides - 1); break;
-    case 'e': case 'E': toggleEditMode(); break;
-  }
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); navigate(1); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); navigate(-1); }
+  if (e.key === 'Home') { e.preventDefault(); goToSlide(0); }
+  if (e.key === 'End') { e.preventDefault(); goToSlide(totalSlides - 1); }
 });
 
+// 触摸滑动
 var touchStartX = 0;
-document.addEventListener('touchstart', function(e) {
-  touchStartX = e.touches[0].clientX;
-});
+document.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; });
 document.addEventListener('touchend', function(e) {
   var dx = e.changedTouches[0].clientX - touchStartX;
-  if (Math.abs(dx) > 50) {
-    navigate(dx > 0 ? -1 : 1);
-  }
+  if (Math.abs(dx) > 50) navigate(dx > 0 ? -1 : 1);
 });
-
-function toggleEditMode() {
-  editMode = !editMode;
-  var slide = slides[currentSlide];
-  var editable = slide.querySelectorAll('h1, h2, h3, p, span, td, div[style*="font-size"]');
-  editable.forEach(function(el) {
-    if (editMode) {
-      el.setAttribute('contenteditable', editMode);
-    } else {
-      el.removeAttribute('contenteditable');
-    }
-  });
-  var hint = document.querySelector('.edit-hint');
-  hint.textContent = editMode ? '编辑模式已开启 · 点击文字直接编辑 · 按 E 退出' : '按 E 开启/关闭编辑模式 · ←→ 翻页';
-  hint.style.opacity = editMode ? '1' : '0';
-}
 </script>
 
 </body>
