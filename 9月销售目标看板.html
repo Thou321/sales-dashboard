@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>9月销售目标看板 · 嘉合伟业</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js">
+</script>
+<style>
+/* ===== MODERN DARK LUXURY DESIGN ===== */
+:root {
+  --bg-deep: #060613;
+  --bg-card: rgba(15, 15, 35, 0.75);
+  --bg-card-alt: rgba(20, 20, 45, 0.8);
+  --border: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(99, 102, 241, 0.35);
+  --text: #e8ecf1;
+  --text-dim: #8892a4;
+  --text-muted: #566077;
+  --accent: #6366f1;
+  --accent2: #8b5cf6;
+  --accent-glow: rgba(99, 102, 241, 0.25);
+  --green: #10b981;
+  --amber: #f59e0b;
+  --rose: #f43f5e;
+  --sky: #38bdf8;
+  --radius: 18px;
+  --radius-sm: 12px;
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg-deep);
+  color: var(--text);
+  min-height: 100vh;
+  min-height: 100dvh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Subtle animated background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 0%, rgba(99,102,241,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(139,92,246,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 30% at 50% 50%, rgba(14,165,233,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 16px 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== HEADER ===== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.header-left h1 {
+  font-size: clamp(20px, 5vw, 30px);
+  font-weight: 800;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.header-meta {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+.pill {
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  backdrop-filter: blur(10px);
+  white-space: nowrap;
+}
+.pill.warn { color: var(--amber); border-color: rgba(245,158,11,0.3); }
+.pill.good { color: var(--green); border-color: rgba(16,185,129,0.3); }
+
+.btn-icon {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-dim);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  transition: all 0.2s;
+}
+.btn-icon:active { transform: scale(0.92); }
+.btn-icon:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ===== KPI CARDS ===== */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.kpi-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.kpi-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.kpi-card:hover::after { opacity: 1; }
+.kpi-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px var(--accent-glow);
+}
+.kpi-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.kpi-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.kpi-label {
+  font-size: 13px;
+  color: var(--text-dim);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+.kpi-body {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.kpi-ring-wrap {
+  width: 72px; height: 72px;
+  flex-shrink: 0;
+  position: relative;
+}
+.kpi-ring-wrap svg { width: 72px; height: 72px; }
+.kpi-ring-val {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
+}
+.kpi-ring-val small { font-size: 9px; font-weight: 500; color: var(--text-muted); }
+.kpi-metrics {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.kpi-metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.kpi-metric-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.kpi-metric-val {
+  font-size: 14px;
+  font-weight: 700;
+  text-align: right;
+  white-space: nowrap;
+}
+.kpi-footer {
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.kpi-warn {
+  font-size: 11px;
+  color: var(--rose);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.kpi-ok {
+  font-size: 11px;
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ===== SECTION ===== */
+.section {
+  margin-bottom: 24px;
+}
+.section-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: -0.3px;
+}
+.section-title::before {
+  content: '';
+  width: 4px; height: 18px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--accent), var(--accent2));
+}
+
+/* ===== CHARTS ===== */
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+@media (max-width: 768px) { .charts-grid { grid-template-columns: 1fr; } }
+
+.chart-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  transition: all 0.3s;
+}
+.chart-card:hover {
+  border-color: var(--border-hover);
+}
+.chart-card h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+  letter-spacing: 0.3px;
+}
+.chart-wrap {
+  position: relative;
+  width: 100%;
+  height: 260px;
+}
+@media (max-width: 768px) { .chart-wrap { height: 220px; } }
+
+/* ===== CATEGORY CARDS ===== */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  gap: 12px;
+}
+@media (max-width: 480px) {
+  .cat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.cat-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  transition: all 0.25s;
+}
+.cat-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-1px);
+}
+.cat-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.cat-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+.cat-name {
+  font-size: 14px;
+  font-weight: 700;
+}
+.cat-pct {
+  font-size: 13px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 10px;
+}
+.cat-bar-row {
+  margin-bottom: 6px;
+}
+.cat-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-bottom: 3px;
+}
+.cat-bar-track {
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.cat-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.cat-extra {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+
+/* ===== FILTER BAR ===== */
+.filter-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.filter-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  padding-top: 7px;
+  min-width: 32px;
+  flex-shrink: 0;
+}
+.filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.filter-tag {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-dim);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  backdrop-filter: blur(10px);
+  user-select: none;
+}
+.filter-tag:hover {
+  border-color: var(--border-hover);
+  color: var(--text);
+}
+.filter-tag.active {
+  background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.1));
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ===== CHANNEL CARDS ===== */
+.ch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  gap: 12px;
+}
+.ch-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.ch-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px;
+  height: 100%;
+  opacity: 0.5;
+}
+.ch-card:hover {
+  border-color: var(--border-hover);
+}
+.ch-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+.ch-name {
+  font-size: 15px;
+  font-weight: 700;
+}
+.ch-operator {
+  font-size: 11px;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 2px;
+}
+.ch-badge {
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+.badge-green { background: rgba(16,185,129,0.15); color: var(--green); }
+.badge-amber { background: rgba(245,158,11,0.15); color: var(--amber); }
+.badge-rose  { background: rgba(244,63,94,0.15); color: var(--rose); }
+.badge-sky   { background: rgba(56,189,248,0.15); color: var(--sky); }
+
+.ch-bar-section { margin-bottom: 10px; }
+.ch-bar-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+.ch-bar-header .ch-bar-title { color: var(--text-dim); }
+.ch-bar-header .ch-bar-val { font-weight: 600; font-size: 11px; }
+.ch-bar-track {
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.ch-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.ch-cats {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.ch-cat-title {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.ch-cat-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.ch-cat-label {
+  width: 34px;
+  font-size: 10px;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+.ch-cat-mini-track {
+  flex: 1;
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.ch-cat-mini-fill {
+  height: 100%;
+  border-radius: 2px;
+}
+.ch-cat-mini-pct {
+  width: 32px;
+  font-size: 10px;
+  font-weight: 600;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ===== TABLE ===== */
+.table-shell {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  min-width: 700px;
+}
+thead th {
+  background: rgba(15,15,35,0.95);
+  color: var(--text-dim);
+  font-weight: 600;
+  padding: 10px 12px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+td {
+  padding: 8px 12px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+td.name-cell {
+  text-align: left;
+  font-weight: 600;
+}
+tr:hover td {
+  background: rgba(99,102,241,0.04);
+}
+tr.total-row td {
+  font-weight: 700;
+  background: rgba(99,102,241,0.06);
+  border-bottom: 1px solid rgba(99,102,241,0.15);
+}
+.mini-bar-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 80px;
+}
+.mini-bar-track {
+  width: 50px;
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.mini-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+}
+/* ===== MOBILE ===== */
+@media (max-width: 640px) {
+  .container { padding: 10px 12px; }
+  .kpi-row { grid-template-columns: 1fr; gap: 10px; }
+  .kpi-card { padding: 16px 18px; }
+  .kpi-body { gap: 16px; }
+  .kpi-ring-wrap { width: 60px; height: 60px; }
+  .kpi-ring-val { font-size: 15px; }
+  .cat-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .ch-grid { grid-template-columns: 1fr; gap: 8px; }
+  .header-left h1 { font-size: 20px; }
+  .chart-card { padding: 12px; }
+  .chart-wrap { height: 200px; }
+  td, th { padding: 6px 8px; font-size: 11px; }
+}
+@media (max-width: 380px) {
+  .kpi-row { grid-template-columns: 1fr; }
+  .cat-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.anim-up {
+  animation: fadeUp 0.5s ease-out both;
+}
+.anim-d1 { animation-delay: 0s; }
+.anim-d2 { animation-delay: 0.05s; }
+.anim-d3 { animation-delay: 0.1s; }
+.anim-d4 { animation-delay: 0.15s; }
+.anim-d5 { animation-delay: 0.2s; }
+
+/* ===== FULLSCREEN EXPAND ===== */
+.fs-overlay {
+  display: none; position: fixed; inset: 0; z-index: 99990;
+  background: rgba(2,2,15,0.93); backdrop-filter: blur(12px);
+  cursor: pointer;
+}
+.fs-overlay.active { display: block; animation: fsFade 0.3s ease-out; }
+@keyframes fsFade { from { opacity: 0; } to { opacity: 1; } }
+
+.fs-panel {
+  position: fixed; z-index: 99999;
+  border-radius: 16px;
+  background: var(--bg-card);
+  border: 1px solid rgba(99,102,241,0.35);
+  box-shadow: 0 0 80px rgba(99,102,241,0.35), 0 0 160px rgba(139,92,246,0.2);
+  animation: fsPop 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  display: flex; flex-direction: column;
+}
+@keyframes fsPop {
+  from { opacity: 0; transform: scale(0.85) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.fs-panel-inner { padding: 28px 36px 36px; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.fs-panel-title {
+  font-size: 20px; font-weight: 700; color: var(--text);
+  margin-bottom: 20px; letter-spacing: 1px;
+  display: flex; align-items: center; gap: 8px;
+}
+.fs-panel-chart { flex: 1; min-height: 0; position: relative; }
+
+/* KPI fullscreen */
+.fs-kpi-wrap {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 32px;
+}
+.fs-kpi-row { display: flex; align-items: center; gap: 40px; }
+.fs-kpi-big-ring { width: 200px; height: 200px; position: relative; flex-shrink: 0; }
+.fs-kpi-big-ring svg { width: 200px; height: 200px; }
+.fs-kpi-big-val {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  font-size: 52px; font-weight: 900; line-height: 1;
+}
+.fs-kpi-big-val small { font-size: 14px; font-weight: 500; color: var(--text-muted); }
+.fs-kpi-stats { display: flex; flex-direction: column; gap: 10px; }
+.fs-kpi-stat { display: flex; justify-content: space-between; gap: 24px; }
+.fs-kpi-stat .l { color: var(--text-dim); font-size: 16px; }
+.fs-kpi-stat .v { font-weight: 700; font-size: 22px; text-align: right; }
+.fs-kpi-note { margin-top: 8px; font-size: 14px; color: var(--text-muted); }
+
+.fs-close {
+  display: none; position: fixed; top: 20px; right: 20px; z-index: 100000;
+  width: 44px; height: 44px; border-radius: 50%; cursor: pointer;
+  border: 2px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.5);
+  color: #fff; font-size: 20px; align-items: center; justify-content: center;
+  transition: all 0.3s; line-height: 1; user-select: none;
+}
+.fs-close.active { display: flex; }
+.fs-close:hover { border-color: var(--accent); color: var(--accent); transform: scale(1.15); box-shadow: 0 0 16px var(--accent-glow); }
+
+.fs-hint {
+  display: none; position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+  z-index: 100000; color: var(--text-muted); font-size: 12px; letter-spacing: 1.5px;
+}
+.fs-hint.active { display: block; animation: fsFade 0.5s ease-out 0.3s both; }
+
+.fs-expandable { cursor: pointer; position: relative; }
+</style>
+</head>
+<body>
+<div class="fs-overlay" id="fsOverlay"></div>
+<div class="fs-close" id="fsClose">✕</div>
+<div class="fs-hint" id="fsHint">点击遮罩或 ✕ 关闭 · 按 ESC 退出</div>
+<div class="container">
+
+<!-- HEADER -->
+<header class="header anim-up anim-d1">
+  <div class="header-left">
+    <h1>📊 9月销售目标看板</h1>
+    <div class="header-meta">
+      <span class="pill">📅 <span id="meta-date">-</span></span>
+      <span class="pill">🕐 更新于 <span id="meta-gen">-</span></span>
+      <span class="pill warn">⏳ 时间进度 <span id="meta-time">-</span>%</span>
+    </div>
+  </div>
+</header>
+
+<!-- KPI CARDS -->
+<div class="kpi-row" id="kpiRow"></div>
+
+<!-- CHARTS ROW 1 -->
+<div class="section anim-up anim-d3">
+  <div class="section-title">📈 数据可视化</div>
+  <div class="charts-grid">
+    <div class="chart-card fs-expandable">
+      <h3>各类目销售额 · 目标 vs 实际</h3>
+      <div class="chart-wrap"><canvas id="catBarChart"></canvas></div>
+    </div>
+    <div class="chart-card fs-expandable">
+      <h3>各渠道实销占比</h3>
+      <div class="chart-wrap"><canvas id="channelPieChart"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- CHARTS ROW 2 -->
+<div class="section anim-up anim-d4">
+  <div class="charts-grid">
+    <div class="chart-card fs-expandable">
+      <h3>各类目完成率对比</h3>
+      <div class="chart-wrap"><canvas id="catRateChart"></canvas></div>
+    </div>
+    <div class="chart-card fs-expandable">
+      <h3>各渠道销售额进度</h3>
+      <div class="chart-wrap"><canvas id="channelBarChart"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORY PROGRESS -->
+<div class="section anim-up anim-d4">
+  <div class="section-title">📂 类目进度</div>
+  <div class="cat-grid" id="catGrid"></div>
+</div>
+
+<!-- CHANNEL CARDS -->
+<div class="section anim-up anim-d5">
+  <div class="section-title">🏪 渠道进度</div>
+  <div class="filter-row" id="filterChRow"></div>
+  <div class="filter-row" id="filterOpRow"></div>
+  <div class="ch-grid" id="chGrid"></div>
+</div>
+
+<!-- DETAIL TABLE -->
+<div class="section anim-up anim-d5">
+  <div class="section-title">📋 明细汇总（渠道 × 类目）</div>
+  <div class="table-shell">
+    <div class="table-scroll">
+      <table>
+        <thead><tr>
+          <th>渠道</th><th>类目</th><th>目标销售额</th><th>实际销售额</th><th>完成率</th><th>目标毛利润</th><th>实际毛利润</th><th>利润进度</th>
+        </tr></thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  数据来源：ERP网销商品统计 · 生成于 <span id="footerGen">-</span>
+</footer>
+
+</div>
+
+<script>
+// ===== DATA INJECTION =====
+const DATA = {"channels": [{"name": "淘宝", "operator": "徐康", "target_amount": 160000.0, "actual_amount": 16031.17, "target_profit": 5000.0, "actual_profit": 1519.54, "amount_rate": 10.0, "profit_rate": 30.4, "categories": {"板U": {"target_amount": 120000.0, "actual_amount": 15923.17, "target_profit": 3750.0, "actual_profit": 1411.54, "amount_rate": 13.3, "profit_rate": 37.6}, "整机": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显卡": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显示器": {"target_amount": 10000.0, "actual_amount": 0, "target_profit": 312.5, "actual_profit": 0, "amount_rate": 0.0, "profit_rate": 0.0}, "其他": {"target_amount": 30000.0, "actual_amount": 108.0, "target_profit": 937.5, "actual_profit": 108.0, "amount_rate": 0.4, "profit_rate": 11.5}}}, {"name": "AOC", "operator": "吴冬泉", "target_amount": 100000.0, "actual_amount": 4257.0, "target_profit": 500.0, "actual_profit": 507.0, "amount_rate": 4.3, "profit_rate": 101.4, "categories": {"板U": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "整机": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显卡": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显示器": {"target_amount": 100000.0, "actual_amount": 4257.0, "target_profit": 500.0, "actual_profit": 507.0, "amount_rate": 4.3, "profit_rate": 101.4}, "其他": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}}}, {"name": "PDD嘉合", "operator": "周凯峰", "target_amount": 1400000.0, "actual_amount": 59864.91, "target_profit": 10000.0, "actual_profit": -1519.58, "amount_rate": 4.3, "profit_rate": -15.2, "categories": {"板U": {"target_amount": 1300000.0, "actual_amount": 55916.91, "target_profit": 9285.71, "actual_profit": -1847.58, "amount_rate": 4.3, "profit_rate": -19.9}, "整机": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显卡": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显示器": {"target_amount": 100000.0, "actual_amount": 3948.0, "target_profit": 714.29, "actual_profit": 328.0, "amount_rate": 3.9, "profit_rate": 45.9}, "其他": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}}}, {"name": "PDD华硕", "operator": "周凯峰", "target_amount": 1550000.0, "actual_amount": 83469.12, "target_profit": 15000.0, "actual_profit": 516.29, "amount_rate": 5.4, "profit_rate": 3.4, "categories": {"板U": {"target_amount": 1300000.0, "actual_amount": 61566.12, "target_profit": 12580.65, "actual_profit": -313.15, "amount_rate": 4.7, "profit_rate": -2.5}, "整机": {"target_amount": 50000.0, "actual_amount": 0, "target_profit": 483.87, "actual_profit": 0, "amount_rate": 0.0, "profit_rate": 0.0}, "显卡": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显示器": {"target_amount": 200000.0, "actual_amount": 20105.0, "target_profit": 1935.48, "actual_profit": 361.44, "amount_rate": 10.1, "profit_rate": 18.7}, "其他": {"target_amount": 0.0, "actual_amount": 1798.0, "target_profit": 0.0, "actual_profit": 468.0, "amount_rate": 100, "profit_rate": 100}}}, {"name": "PDD铭瑄", "operator": "周凯峰", "target_amount": 0.0, "actual_amount": 11041.0, "target_profit": 0, "actual_profit": 233.27, "amount_rate": 0, "profit_rate": 0, "categories": {"板U": {"target_amount": 0.0, "actual_amount": 5725.0, "target_profit": 0, "actual_profit": -57.63, "amount_rate": 100, "profit_rate": 0}, "整机": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显卡": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显示器": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "其他": {"target_amount": 0.0, "actual_amount": 5316.0, "target_profit": 0, "actual_profit": 290.9, "amount_rate": 100, "profit_rate": 100}}}, {"name": "抖音嘉合", "operator": "王盼", "target_amount": 1280000.0, "actual_amount": 52717.0, "target_profit": 20000.0, "actual_profit": 17620.14, "amount_rate": 4.1, "profit_rate": 88.1, "categories": {"板U": {"target_amount": 500000.0, "actual_amount": 29778.0, "target_profit": 7812.5, "actual_profit": 7697.14, "amount_rate": 6.0, "profit_rate": 98.5}, "整机": {"target_amount": 450000.0, "actual_amount": 7319.0, "target_profit": 7031.25, "actual_profit": 7319.0, "amount_rate": 1.6, "profit_rate": 104.1}, "显卡": {"target_amount": 200000.0, "actual_amount": 3119.0, "target_profit": 3125.0, "actual_profit": 119.0, "amount_rate": 1.6, "profit_rate": 3.8}, "显示器": {"target_amount": 80000.0, "actual_amount": 0.0, "target_profit": 1250.0, "actual_profit": -2585.0, "amount_rate": 0.0, "profit_rate": -206.8}, "其他": {"target_amount": 50000.0, "actual_amount": 12501.0, "target_profit": 781.25, "actual_profit": 5070.0, "amount_rate": 25.0, "profit_rate": 649.0}}}, {"name": "抖音三超", "operator": "王盼", "target_amount": 620000.0, "actual_amount": 0, "target_profit": 12000.0, "actual_profit": 0, "amount_rate": 0.0, "profit_rate": 0.0, "categories": {"板U": {"target_amount": 100000.0, "actual_amount": 0, "target_profit": 1935.48, "actual_profit": 0, "amount_rate": 0.0, "profit_rate": 0.0}, "整机": {"target_amount": 450000.0, "actual_amount": 0, "target_profit": 8709.68, "actual_profit": 0, "amount_rate": 0.0, "profit_rate": 0.0}, "显卡": {"target_amount": 50000.0, "actual_amount": 0, "target_profit": 967.74, "actual_profit": 0, "amount_rate": 0.0, "profit_rate": 0.0}, "显示器": {"target_amount": 20000.0, "actual_amount": 0, "target_profit": 387.1, "actual_profit": 0, "amount_rate": 0.0, "profit_rate": 0.0}, "其他": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}}}, {"name": "抖音速睿达", "operator": "吴冬泉", "target_amount": 50000.0, "actual_amount": 958.0, "target_profit": 500.0, "actual_profit": 38.0, "amount_rate": 1.9, "profit_rate": 7.6, "categories": {"板U": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "整机": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显卡": {"target_amount": 0.0, "actual_amount": 0, "target_profit": 0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显示器": {"target_amount": 50000.0, "actual_amount": 0, "target_profit": 500.0, "actual_profit": 0, "amount_rate": 0.0, "profit_rate": 0.0}, "其他": {"target_amount": 0.0, "actual_amount": 958.0, "target_profit": 0.0, "actual_profit": 38.0, "amount_rate": 100, "profit_rate": 100}}}, {"name": "闲鱼", "operator": "刘杭", "target_amount": 10000.0, "actual_amount": 2316.02, "target_profit": -1000.0, "actual_profit": -839.65, "amount_rate": 23.2, "profit_rate": 84.0, "categories": {"板U": {"target_amount": 3000.0, "actual_amount": 0, "target_profit": -300.0, "actual_profit": 0, "amount_rate": 0.0, "profit_rate": -0.0}, "整机": {"target_amount": 0.0, "actual_amount": 0, "target_profit": -0.0, "actual_profit": 0, "amount_rate": 0, "profit_rate": 0}, "显卡": {"target_amount": 3000.0, "actual_amount": 0, "target_profit": -300.0, "actual_profit": 0, "amount_rate": 0.0, "profit_rate": -0.0}, "显示器": {"target_amount": 4000.0, "actual_amount": 0, "target_profit": -400.0, "actual_profit": 0, "amount_rate": 0.0, "profit_rate": -0.0}, "其他": {"target_amount": 0.0, "actual_amount": 2316.02, "target_profit": -0.0, "actual_profit": -839.65, "amount_rate": 100, "profit_rate": 0}}}], "categories": ["板U", "整机", "显卡", "显示器", "其他"], "cat_summary": {"板U": {"target_amount": 3323000.0, "actual_amount": 168909.2, "target_profit": 35064.34, "actual_profit": 6890.33, "amount_rate": 5.1, "profit_rate": 19.7}, "整机": {"target_amount": 950000.0, "actual_amount": 7319.0, "target_profit": 16224.800000000001, "actual_profit": 7319.0, "amount_rate": 0.8, "profit_rate": 45.1}, "显卡": {"target_amount": 253000.0, "actual_amount": 3119.0, "target_profit": 3792.74, "actual_profit": 119.0, "amount_rate": 1.2, "profit_rate": 3.1}, "显示器": {"target_amount": 564000.0, "actual_amount": 28310.0, "target_profit": 5199.37, "actual_profit": -1388.56, "amount_rate": 5.0, "profit_rate": -26.7}, "其他": {"target_amount": 80000.0, "actual_amount": 22997.02, "target_profit": 1718.75, "actual_profit": 5135.25, "amount_rate": 28.7, "profit_rate": 298.8}}, "channel_pie": [{"name": "淘宝", "value": 16031.17, "percent": 7.0}, {"name": "AOC", "value": 4257.0, "percent": 1.8}, {"name": "PDD嘉合", "value": 59864.91, "percent": 26.0}, {"name": "PDD华硕", "value": 83469.12, "percent": 36.2}, {"name": "PDD铭瑄", "value": 11041.0, "percent": 4.8}, {"name": "抖音嘉合", "value": 52717.0, "percent": 22.9}, {"name": "抖音速睿达", "value": 958.0, "percent": 0.4}, {"name": "闲鱼", "value": 2316.02, "percent": 1.0}], "total": {"target_amount": 5170000.0, "actual_amount": 230654.22, "target_profit": 62000.0, "actual_profit": 18075.02, "amount_rate": 4.5, "profit_rate": 29.2}, "meta": {"date": "2026年09月3日", "time_progress": 10.0, "day": 3, "total_days": 30, "generated": "2026-09-03 10:02:13"}};
+const GENERATED = '2026-09-03 10:02:13';
+
+// ===== UTILS =====
+const fmtW = n => (n / 10000).toFixed(1) + '万';
+const fmtY = n => '¥' + Math.abs(n).toLocaleString('zh-CN', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+const fmtYS = n => (n >= 0 ? '¥' : '-¥') + Math.abs(n).toLocaleString('zh-CN', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+const fmtR = r => {
+  const a = Math.abs(r);
+  return (a >= 1000 ? a.toFixed(0) : a.toFixed(1)) + '%';
+};
+const fmtR2 = r => r.toFixed(1) + '%';
+
+function barColor(r) {
+  if (r >= 100) return '#10b981';
+  if (r >= 80)  return '#38bdf8';
+  if (r >= 41)  return '#f59e0b';
+  if (r >= 0)   return '#f43f5e';
+  return '#f43f5e';
+}
+
+function statusBadge(r) {
+  if (r >= 100) return 'badge-green';
+  if (r >= 80)  return 'badge-green';
+  if (r >= 41)  return 'badge-amber';
+  return 'badge-rose';
+}
+
+function statusTxt(r) {
+  if (r >= 100) return '✓ 超额完成';
+  if (r >= 80)  return '接近目标';
+  if (r >= 41)  return '进行中';
+  if (r > 0)    return '落后';
+  return '未启动';
+}
+
+// Chart.js dark theme defaults
+Chart.defaults.color = '#8892a4';
+Chart.defaults.borderColor = 'rgba(255,255,255,0.04)';
+Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
+Chart.defaults.font.size = 11;
+
+// ---- Data Labels Plugin ----
+const dataLabelPlugin = {
+  id: 'dataLabels',
+  afterDatasetsDraw(chart) {
+    const ctx = chart.ctx, type = chart.config.type;
+    ctx.save();
+    chart.data.datasets.forEach((ds, di) => {
+      const meta = chart.getDatasetMeta(di);
+      if (meta.hidden) return;
+      meta.data.forEach((el, i) => {
+        const val = ds.data[i];
+        if (val == null || val === 0) return;
+        var txt = val >= 10000 ? (val/10000).toFixed(1)+'万' : val.toLocaleString();
+        ctx.font = 'bold 11px "PingFang SC","Microsoft YaHei",sans-serif';
+        ctx.fillStyle = '#dce6ff';
+        if (type === 'bar' && chart.options.indexAxis === 'y') {
+          ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+          ctx.fillText(' ' + txt, el.x + 4, el.y);
+        } else if (type === 'bar') {
+          ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+          ctx.fillText(txt, el.x, el.y - 4);
+        } else if (type === 'doughnut') {
+          // Show percentage on doughnut segments
+          var pct = chart.data.datasets[0].data[i];
+          var total = chart.data.datasets[0].data.reduce(function(a,b){return a+b;},0);
+          var percent = total > 0 ? (pct/total*100).toFixed(1)+'%' : '';
+          if (pct > 0 && percent.length > 0) {
+            var angle = (el.startAngle + el.endAngle) / 2;
+            var r = (el.outerRadius + el.innerRadius) / 2;
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.font = 'bold 10px "PingFang SC","Microsoft YaHei",sans-serif';
+            ctx.fillStyle = '#fff';
+            ctx.fillText(percent, el.x + Math.cos(angle)*r*0.8, el.y + Math.sin(angle)*r*0.8);
+          }
+        }
+      });
+    });
+    ctx.restore();
+  }
+};
+Chart.register(dataLabelPlugin);
+
+// ===== META =====
+document.getElementById('meta-date').textContent = DATA.meta.date;
+document.getElementById('meta-gen').textContent = GENERATED;
+document.getElementById('meta-time').textContent = DATA.meta.time_progress;
+document.getElementById('footerGen').textContent = GENERATED;
+
+// ===== KPI CARDS =====
+const T = DATA.total;
+const kpiRow = document.getElementById('kpiRow');
+const pad2 = (n) => String(n).padStart(2, '0');
+
+// Ring SVG helper
+function ringSvg(pct, colorStop1, colorStop2) {
+  const r = 30, circ = 2 * Math.PI * r;
+  const offset = circ * (1 - Math.min(pct, 100) / 100);
+  return `<svg viewBox="0 0 72 72">
+    <circle cx="36" cy="36" r="${r}" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="4"/>
+    <circle cx="36" cy="36" r="${r}" fill="none" stroke="url(#grad${pad2((pct*1e5)%99)})" stroke-width="4"
+      stroke-dasharray="${circ.toFixed(1)}" stroke-dashoffset="${offset.toFixed(1)}"
+      stroke-linecap="round" transform="rotate(-90 36 36)"/>
+    <defs><linearGradient id="grad${pad2((pct*1e5)%99)}" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="${colorStop1}"/><stop offset="100%" stop-color="${colorStop2}"/>
+    </linearGradient></defs>
+  </svg>`;
+}
+
+const amountColor = T.amount_rate >= 40 ? 'var(--green)' : T.amount_rate >= 20 ? '#f59e0b' : 'var(--rose)';
+const profitColor = T.profit_rate >= 0 ? 'var(--green)' : 'var(--rose)';
+const isProfitHealthy = T.profit_rate >= T.amount_rate;
+
+const ratingLabel = T.amount_rate >= 80 ? '优秀' : T.amount_rate >= 50 ? '良好' : T.amount_rate >= 30 ? '一般' : '紧迫';
+const ratingColor = T.amount_rate >= 80 ? 'var(--green)' : T.amount_rate >= 50 ? '#60a5fa' : T.amount_rate >= 30 ? '#f59e0b' : 'var(--rose)';
+
+kpiRow.innerHTML = `
+<div class="kpi-card fs-expandable">
+  <div class="kpi-header">
+    <div class="kpi-icon" style="background:rgba(99,102,241,0.12);color:#818cf8">📈</div>
+    <div class="kpi-label">销售额进度</div>
+    <span style="margin-left:auto;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;background:${ratingColor}15;color:${ratingColor}">${ratingLabel}</span>
+  </div>
+  <div class="kpi-body">
+    <div class="kpi-ring-wrap">
+      ${ringSvg(T.amount_rate, '#6366f1', '#8b5cf6')}
+      <div class="kpi-ring-val" style="color:${amountColor}">${T.amount_rate.toFixed(1)}<small>%</small></div>
+    </div>
+    <div class="kpi-metrics">
+      <div class="kpi-metric-row">
+        <span class="kpi-metric-label">已达成</span>
+        <span class="kpi-metric-val" style="color:var(--text)">¥${fmtW(T.actual_amount)}</span>
+      </div>
+      <div class="kpi-metric-row">
+        <span class="kpi-metric-label">销售目标</span>
+        <span class="kpi-metric-val" style="color:var(--text-dim)">¥${fmtW(T.target_amount)}</span>
+      </div>
+      <div class="kpi-metric-row">
+        <span class="kpi-metric-label">缺口</span>
+        <span class="kpi-metric-val" style="color:var(--rose)">¥${fmtW(Math.max(0, T.target_amount - T.actual_amount))}</span>
+      </div>
+    </div>
+  </div>
+  <div class="kpi-footer">
+    <span style="font-size:11px;color:var(--text-muted)">时间进度 ${DATA.meta.time_progress}% · ${T.amount_rate >= DATA.meta.time_progress ? '领' + '先于时间进度' : '落后于时间进度'}</span>
+  </div>
+</div>
+<div class="kpi-card fs-expandable">
+  <div class="kpi-header">
+    <div class="kpi-icon" style="background:${T.actual_profit >= 0 ? 'rgba(34,197,94,0.12)' : 'rgba(244,63,94,0.12)'};color:${T.actual_profit >= 0 ? '#4ade80' : '#fb7185'}">💰</div>
+    <div class="kpi-label">利润健康度</div>
+  </div>
+  <div class="kpi-body">
+    <div class="kpi-ring-wrap">
+      ${ringSvg(Math.max(0, T.profit_rate), '#22c55e', '#10b981')}
+      <div class="kpi-ring-val" style="color:${profitColor}">${Math.max(0, T.profit_rate).toFixed(1)}<small>%</small></div>
+    </div>
+    <div class="kpi-metrics">
+      <div class="kpi-metric-row">
+        <span class="kpi-metric-label">实际利润</span>
+        <span class="kpi-metric-val" style="color:${T.actual_profit >= 0 ? 'var(--green)' : 'var(--rose)'}">${fmtYS(T.actual_profit)}</span>
+      </div>
+      <div class="kpi-metric-row">
+        <span class="kpi-metric-label">目标利润</span>
+        <span class="kpi-metric-val" style="color:var(--text-dim)">¥${fmtW(T.target_profit)}</span>
+      </div>
+      <div class="kpi-metric-row">
+        <span class="kpi-metric-label">利润率</span>
+        <span class="kpi-metric-val" style="color:${T.actual_profit >= 0 ? 'var(--green)' : 'var(--rose)'}">${T.actual_amount > 0 ? (T.actual_profit / T.actual_amount * 100).toFixed(2) : '0.00'}%</span>
+      </div>
+    </div>
+  </div>
+  <div class="kpi-footer">
+    ${isProfitHealthy
+      ? `<span class="kpi-ok">✓ 利润进度领先销售进度</span>`
+      : `<span class="kpi-warn">⚠ 利润进度落后于销售进度</span>`}
+  </div>
+</div>`;
+
+// ===== CHARTS =====
+const baseOpts = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      labels: { color: '#8892a4', font: { size: 11 }, padding: 16, usePointStyle: false, boxWidth: 14 }
+    }
+  }
+};
+
+// Cat Bar Chart
+new Chart(document.getElementById('catBarChart'), {
+  type: 'bar',
+  data: {
+    labels: DATA.categories,
+    datasets: [
+      {
+        label: '目标销售额',
+        data: DATA.categories.map(c => DATA.cat_summary[c].target_amount),
+        backgroundColor: 'rgba(148,163,184,0.2)',
+        borderColor: 'rgba(148,163,184,0.4)',
+        borderWidth: 1,
+        borderRadius: 6,
+        borderSkipped: false,
+      },
+      {
+        label: '实际销售额',
+        data: DATA.categories.map(c => DATA.cat_summary[c].actual_amount),
+        backgroundColor: 'rgba(99,102,241,0.5)',
+        borderColor: 'rgba(139,92,246,0.7)',
+        borderWidth: 1,
+        borderRadius: 6,
+        borderSkipped: false,
+      }
+    ]
+  },
+  options: {
+    ...baseOpts,
+    scales: {
+      x: { ticks: { color: '#8892a4', font: { size: 10 } }, grid: { display: false } },
+      y: { ticks: { color: '#8892a4', font: { size: 10 }, callback: v => v >= 10000 ? (v/10000).toFixed(0)+'万' : v }, grid: { color: 'rgba(255,255,255,0.04)' } }
+    }
+  }
+});
+
+// Channel Pie
+const pieColors = ['#6366f1','#10b981','#f59e0b','#f43f5e','#8b5cf6','#38bdf8','#ec4899','#f97316','#84cc16'];
+new Chart(document.getElementById('channelPieChart'), {
+  type: 'doughnut',
+  data: {
+    labels: DATA.channel_pie.map(c => c.name),
+    datasets: [{
+      data: DATA.channel_pie.map(c => c.value),
+      backgroundColor: pieColors,
+      borderWidth: 2,
+      borderColor: '#060613',
+      hoverBorderColor: 'rgba(255,255,255,0.3)',
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'right',
+        labels: { color: '#8892a4', font: { size: 11 }, padding: 12, usePointStyle: false, boxWidth: 14 }
+      },
+      tooltip: { callbacks: { label: ctx => ctx.label + ': ¥' + ctx.raw.toLocaleString() + ' (' + DATA.channel_pie[ctx.dataIndex].percent + '%)' } }
+    }
+  }
+});
+
+// Cat Rate Chart
+new Chart(document.getElementById('catRateChart'), {
+  type: 'bar',
+  data: {
+    labels: DATA.categories,
+    datasets: [
+      {
+        label: '销售额完成率',
+        data: DATA.categories.map(c => Math.min(DATA.cat_summary[c].amount_rate, 200)),
+        backgroundColor: 'rgba(99,102,241,0.5)',
+        borderColor: 'rgba(139,92,246,0.7)',
+        borderWidth: 1,
+        borderRadius: 6,
+        borderSkipped: false,
+      },
+      {
+        label: '利润完成率',
+        data: DATA.categories.map(c => Math.max(-100, Math.min(DATA.cat_summary[c].profit_rate, 200))),
+        backgroundColor: 'rgba(16,185,129,0.4)',
+        borderColor: 'rgba(16,185,129,0.7)',
+        borderWidth: 1,
+        borderRadius: 6,
+        borderSkipped: false,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { labels: { color: '#8892a4', font: { size: 11 }, padding: 16 } } },
+    scales: {
+      x: { ticks: { color: '#8892a4', font: { size: 10 } }, grid: { display: false } },
+      y: { ticks: { color: '#8892a4', font: { size: 10 }, callback: v => v + '%' }, grid: { color: 'rgba(255,255,255,0.04)' }, beginAtZero: true }
+    }
+  }
+});
+
+// Channel Horizontal Bar
+const chSorted = [...DATA.channels].reverse();
+new Chart(document.getElementById('channelBarChart'), {
+  type: 'bar',
+  data: {
+    labels: chSorted.map(c => c.name),
+    datasets: [
+      {
+        label: '目标',
+        data: chSorted.map(c => c.target_amount),
+        backgroundColor: 'rgba(148,163,184,0.15)',
+        borderColor: 'rgba(148,163,184,0.3)',
+        borderWidth: 1,
+        borderRadius: 4,
+        borderSkipped: false,
+      },
+      {
+        label: '实际',
+        data: chSorted.map(c => c.actual_amount),
+        backgroundColor: 'rgba(99,102,241,0.5)',
+        borderColor: 'rgba(139,92,246,0.7)',
+        borderWidth: 1,
+        borderRadius: 4,
+        borderSkipped: false,
+      }
+    ]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { labels: { color: '#8892a4', font: { size: 11 }, padding: 16 } } },
+    scales: {
+      x: { ticks: { color: '#8892a4', font: { size: 10 }, callback: v => v >= 10000 ? (v/10000).toFixed(0)+'万' : v }, grid: { color: 'rgba(255,255,255,0.04)' } },
+      y: { ticks: { color: '#8892a4', font: { size: 10 } }, grid: { display: false } }
+    }
+  }
+});
+
+// ===== CATEGORY CARDS =====
+const catIcons = { '板U': '💻', '整机': '🖥️', '显卡': '🎮', '显示器': '📺', '其他': '📦' };
+const catGrid = document.getElementById('catGrid');
+DATA.categories.forEach(cat => {
+  const d = DATA.cat_summary[cat];
+  const rate = d.amount_rate;
+  const color = barColor(rate);
+  const card = document.createElement('div');
+  card.className = 'cat-card fs-expandable';
+  card.innerHTML = `
+    <div class="cat-top">
+      <div><span class="cat-icon">${catIcons[cat]||'📦'}</span><span class="cat-name"> ${cat}</span></div>
+      <span class="cat-pct" style="background:${color}22;color:${color}">${fmtR2(rate)}</span>
+    </div>
+    <div class="cat-bar-row">
+      <div class="cat-bar-label"><span>💰 销售额</span><span>${fmtY(d.actual_amount)} / ${fmtY(d.target_amount)}</span></div>
+      <div class="cat-bar-track"><div class="cat-bar-fill" style="width:${Math.min(rate,100)}%;background:${color}"></div></div>
+    </div>
+    <div class="cat-bar-row">
+      <div class="cat-bar-label"><span>📊 毛利润</span><span style="color:${d.actual_profit<0?'var(--rose)':''}">${fmtYS(d.actual_profit)} / ${fmtY(d.target_profit)}</span></div>
+      <div class="cat-bar-track"><div class="cat-bar-fill" style="width:${Math.max(0, Math.min(Math.abs(d.profit_rate), 100))}%;background:${d.profit_rate<0?'var(--rose)':barColor(Math.abs(d.profit_rate))}"></div></div>
+    </div>
+    <div class="cat-extra">缺口 ${fmtY(Math.max(0, d.target_amount - d.actual_amount))} · 利润进度 ${fmtR(d.profit_rate)}</div>`;
+  catGrid.appendChild(card);
+});
+
+// ===== CHANNEL CARDS =====
+// 渠道分组（仅前端展示，不动数据）
+const channelGroups = {
+  PDD: ['PDD嘉合', 'PDD华硕', 'PDD铭瑄', 'AOC'],
+  淘系: ['闲鱼', '淘宝'],
+  抖音: ['抖音嘉合', '抖音三超', '抖音速睿达'],
+};
+const allChannels = Object.keys(channelGroups);
+const allOperators = [...new Set(DATA.channels.map(ch => ch.operator))];
+let filterChannel = '全部';
+let filterOperator = '全部';
+
+function renderFilterBar() {
+  // 渠道筛选（按分组展示）
+  const chRow = document.getElementById('filterChRow');
+  chRow.innerHTML = '<span class="filter-label">渠道</span>';
+  const chTags = document.createElement('div');
+  chTags.className = 'filter-tags';
+  ['全部', ...allChannels].forEach(name => {
+    const tag = document.createElement('span');
+    tag.className = 'filter-tag' + (filterChannel === name ? ' active' : '');
+    tag.textContent = name;
+    tag.onclick = () => { filterChannel = name; filterOperator = '全部'; renderFilterBar(); renderChannelCards(); };
+    chTags.appendChild(tag);
+  });
+  chRow.appendChild(chTags);
+  // 运营筛选
+  const opRow = document.getElementById('filterOpRow');
+  opRow.innerHTML = '<span class="filter-label">运营</span>';
+  const opTags = document.createElement('div');
+  opTags.className = 'filter-tags';
+  ['全部', ...allOperators].forEach(name => {
+    const tag = document.createElement('span');
+    tag.className = 'filter-tag' + (filterOperator === name ? ' active' : '');
+    tag.textContent = name;
+    tag.onclick = () => { filterOperator = name; filterChannel = '全部'; renderFilterBar(); renderChannelCards(); };
+    opTags.appendChild(tag);
+  });
+  opRow.appendChild(opTags);
+}
+
+function renderChannelCards() {
+  const chGrid = document.getElementById('chGrid');
+  chGrid.innerHTML = '';
+  const filtered = DATA.channels.filter(ch => {
+    if (filterChannel !== '全部' && !channelGroups[filterChannel].includes(ch.name)) return false;
+    if (filterOperator !== '全部' && ch.operator !== filterOperator) return false;
+    return true;
+  });
+  filtered.forEach(ch => {
+  let catsHtml = '';
+  DATA.categories.forEach(cat => {
+    const cd = ch.categories[cat];
+    if (cd.target_amount > 0 || cd.actual_amount > 0) {
+      catsHtml += `
+      <div class="ch-cat-row">
+        <span class="ch-cat-label">${cat}</span>
+        <div class="ch-cat-mini-track"><div class="ch-cat-mini-fill" style="width:${Math.min(cd.amount_rate,100)}%;background:${barColor(cd.amount_rate)}"></div></div>
+        <span class="ch-cat-mini-pct" style="color:${barColor(cd.amount_rate)}">${fmtR2(cd.amount_rate)}</span>
+      </div>`;
+    }
+  });
+
+  const card = document.createElement('div');
+  card.className = 'ch-card fs-expandable';
+  card.innerHTML = `
+    <div class="ch-top">
+      <div>
+        <span class="ch-name">${ch.name}</span>
+        <span class="ch-operator">👤 ${ch.operator}</span>
+      </div>
+      <span class="ch-badge ${statusBadge(ch.amount_rate)}">${statusTxt(ch.amount_rate)}</span>
+    </div>
+    <div class="ch-bar-section">
+      <div class="ch-bar-header">
+        <span class="ch-bar-title">📈 销售额</span>
+        <span class="ch-bar-val" style="color:${barColor(ch.amount_rate)}">${fmtY(ch.actual_amount)} / ${fmtY(ch.target_amount)} · ${fmtR2(ch.amount_rate)}</span>
+      </div>
+      <div class="ch-bar-track"><div class="ch-bar-fill" style="width:${Math.min(ch.amount_rate,100)}%;background:${barColor(ch.amount_rate)}"></div></div>
+    </div>
+    <div class="ch-bar-section">
+      <div class="ch-bar-header">
+        <span class="ch-bar-title">💰 毛利润</span>
+        <span class="ch-bar-val" style="color:${ch.profit_rate<0?'var(--rose)':barColor(Math.abs(ch.profit_rate))}">${fmtYS(ch.actual_profit)} / ${fmtY(ch.target_profit)} · ${fmtR(ch.profit_rate)}</span>
+      </div>
+      <div class="ch-bar-track"><div class="ch-bar-fill" style="width:${Math.max(0,Math.min(Math.abs(ch.profit_rate),100))}%;background:${ch.profit_rate<0?'var(--rose)':barColor(Math.abs(ch.profit_rate))}"></div></div>
+    </div>
+    <div class="ch-cats">
+      <div class="ch-cat-title">类目明细</div>
+      ${catsHtml}
+    </div>`;
+    chGrid.appendChild(card);
+  });
+}
+
+renderFilterBar();
+renderChannelCards();
+
+// ===== DETAIL TABLE =====
+const tbody = document.getElementById('tableBody');
+DATA.channels.forEach(ch => {
+  let hasData = false;
+  DATA.categories.forEach(cat => {
+    const d = ch.categories[cat];
+    if (d.target_amount === 0 && d.actual_amount === 0) return;
+    hasData = true;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="name-cell">${ch.name}</td>
+      <td>${catIcons[cat]||''} ${cat}</td>
+      <td>${fmtY(d.target_amount)}</td>
+      <td>${fmtY(d.actual_amount)}</td>
+      <td><span style="color:${barColor(d.amount_rate)};font-weight:600">${fmtR2(d.amount_rate)}</span></td>
+      <td>${fmtY(d.target_profit)}</td>
+      <td style="color:${d.actual_profit<0?'var(--rose)':'var(--green)'}">${fmtYS(d.actual_profit)}</td>
+      <td><span style="color:${d.profit_rate<0?'var(--rose)':barColor(Math.abs(d.profit_rate))};font-weight:600">${fmtR(d.profit_rate)}</span></td>`;
+    tbody.appendChild(tr);
+  });
+  if (hasData) {
+    const tr = document.createElement('tr');
+    tr.className = 'total-row';
+    tr.innerHTML = `
+      <td class="name-cell">${ch.name} 合计</td>
+      <td>-</td>
+      <td>${fmtY(ch.target_amount)}</td>
+      <td>${fmtY(ch.actual_amount)}</td>
+      <td style="color:${barColor(ch.amount_rate)}">${fmtR2(ch.amount_rate)}</td>
+      <td>${fmtY(ch.target_profit)}</td>
+      <td style="color:${ch.actual_profit<0?'var(--rose)':'var(--green)'}">${fmtYS(ch.actual_profit)}</td>
+      <td style="color:${ch.profit_rate<0?'var(--rose)':barColor(Math.abs(ch.profit_rate))}">${fmtR(ch.profit_rate)}</td>`;
+    tbody.appendChild(tr);
+  }
+});
+
+// ===== FULLSCREEN EXPAND =====
+(function() {
+  const overlay = document.getElementById('fsOverlay');
+  const closeBtn = document.getElementById('fsClose');
+  const hint = document.getElementById('fsHint');
+  let active = false;
+  let activePanel = null;
+
+  // Mark expandable & use event delegation for dynamic content
+  document.querySelectorAll('.chart-card, .kpi-card, .cat-card').forEach(function(el) {
+    el.classList.add('fs-expandable');
+  });
+  document.body.addEventListener('click', function(e) {
+    if (active) return;
+    var target = e.target.closest('.chart-card, .kpi-card, .cat-card, .ch-card');
+    if (!target) return;
+    e.stopPropagation();
+    expand(target);
+  });
+
+  function expand(el) {
+    active = true;
+    const tw = Math.min(window.innerWidth * 0.92, 1500);
+    const th = Math.min(window.innerHeight * 0.88, 920);
+    const lx = (window.innerWidth - tw) / 2;
+    const ly = (window.innerHeight - th) / 2;
+
+    const panel = document.createElement('div');
+    panel.className = 'fs-panel';
+    panel.style.width = tw + 'px';
+    panel.style.height = th + 'px';
+    panel.style.left = lx + 'px';
+    panel.style.top = ly + 'px';
+
+    if (el.classList.contains('chart-card')) {
+      buildChartPanel(panel, el);
+    } else if (el.classList.contains('kpi-card')) {
+      buildKpiPanel(panel, el);
+    } else if (el.classList.contains('cat-card')) {
+      buildCatPanel(panel, el);
+    } else if (el.classList.contains('ch-card')) {
+      buildChPanel(panel, el);
+    }
+
+    document.body.appendChild(panel);
+    activePanel = panel;
+    overlay.classList.add('active');
+    closeBtn.classList.add('active');
+    hint.classList.add('active');
+  }
+
+  function buildChartPanel(panel, el) {
+    const title = el.querySelector('h3').textContent;
+    panel.innerHTML = '<div class="fs-panel-inner"><div class="fs-panel-title">' + title + '</div><div class="fs-panel-chart"><canvas></canvas></div></div>';
+
+    // Re-initialize chart from original config
+    const origCanvas = el.querySelector('canvas');
+    const origChart = origCanvas ? Chart.getChart(origCanvas) : null;
+    if (origChart) {
+      const cfg = origChart.config;
+      const newChart = new Chart(panel.querySelector('canvas'), {
+        type: cfg.type,
+        data: JSON.parse(JSON.stringify(cfg.data)),
+        options: Object.assign({}, cfg.options, {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: Object.assign({}, cfg.options.plugins, {
+            legend: Object.assign({}, cfg.options.plugins.legend, {
+              labels: Object.assign({}, cfg.options.plugins.legend.labels, { font: { size: 14 }, padding: 20 })
+            })
+          }),
+          scales: cfg.options.scales ? (function(s) {
+            var ns = {};
+            for (var k in s) {
+              ns[k] = Object.assign({}, s[k], {
+                ticks: Object.assign({}, s[k].ticks, { font: { size: 12 } })
+              });
+            }
+            return ns;
+          })(cfg.options.scales) : undefined
+        })
+      });
+      panel._chart = newChart;
+    }
+  }
+
+  function buildKpiPanel(panel, el) {
+    // Extract data from the KPI card's displayed numbers
+    const ringVal = el.querySelector('.kpi-ring-val');
+    const metrics = el.querySelectorAll('.kpi-metric-row');
+    const label = el.querySelector('.kpi-label');
+    const footer = el.querySelector('.kpi-footer span');
+    const title = label ? label.textContent : '';
+    const ringHTML = ringVal ? ringVal.cloneNode(true).outerHTML : '';
+    const ringWrap = el.querySelector('.kpi-ring-wrap svg');
+    const ringSvgHTML = ringWrap ? ringWrap.outerHTML : '';
+
+    // Build stat rows from metric rows
+    var statHTML = '';
+    metrics.forEach(function(m) {
+      var lbl = m.querySelector('.kpi-metric-label');
+      var val = m.querySelector('.kpi-metric-val');
+      if (lbl && val) statHTML += '<div class="fs-kpi-stat"><span class="l">' + lbl.textContent + '</span><span class="v">' + val.textContent + '</span></div>';
+    });
+
+    var note = footer ? footer.textContent : '';
+    panel.innerHTML = '<div class="fs-panel-inner"><div class="fs-panel-title">' + title + '</div>' +
+      '<div class="fs-kpi-wrap"><div class="fs-kpi-row">' +
+      '<div class="fs-kpi-big-ring">' + ringSvgHTML + '<div class="fs-kpi-big-val">' + (ringVal ? ringVal.innerHTML : '') + '</div></div>' +
+      '<div class="fs-kpi-stats">' + statHTML + '</div>' +
+      '</div><div class="fs-kpi-note">' + note + '</div></div></div>';
+  }
+
+  function buildCatPanel(panel, el) {
+    var icon = el.querySelector('.cat-icon');
+    var name = el.querySelector('.cat-name');
+    var pct = el.querySelector('.cat-pct');
+    var bars = el.querySelectorAll('.cat-bar-row');
+    var extra = el.querySelector('.cat-extra');
+    var title = (icon ? icon.textContent : '') + ' ' + (name ? name.textContent.trim() : '');
+
+    var barHTML = '';
+    bars.forEach(function(b) {
+      var label = b.querySelector('.cat-bar-label');
+      var fill = b.querySelector('.cat-bar-fill');
+      if (label && fill) {
+        var w = fill.style.width || '0%';
+        var c = getComputedStyle(fill).backgroundColor;
+        barHTML += '<div style="margin-bottom:16px"><div style="display:flex;justify-content:space-between;font-size:14px;color:var(--text-dim);margin-bottom:6px">' + label.innerHTML + '</div>' +
+          '<div style="height:12px;background:rgba(255,255,255,0.06);border-radius:6px;overflow:hidden"><div style="height:100%;width:' + w + ';background:' + c + ';border-radius:6px;transition:width 1s"></div></div></div>';
+      }
+    });
+
+    panel.innerHTML = '<div class="fs-panel-inner"><div class="fs-panel-title" style="font-size:26px">' + title +
+      ' <span style="font-size:18px;padding:4px 16px;border-radius:12px;background:' + (pct ? getComputedStyle(pct).backgroundColor : '#333') + ';color:' + (pct ? getComputedStyle(pct).color : '#fff') + ';margin-left:12px">' + (pct ? pct.textContent : '') + '</span></div>' +
+      '<div style="flex:1;display:flex;flex-direction:column;justify-content:center;max-width:800px;margin:0 auto;width:100%">' + barHTML +
+      '<div style="font-size:16px;color:var(--text-muted);margin-top:12px;text-align:center">' + (extra ? extra.textContent : '') + '</div></div></div>';
+  }
+
+  function buildChPanel(panel, el) {
+    var name = el.querySelector('.ch-name');
+    var op = el.querySelector('.ch-operator');
+    var badge = el.querySelector('.ch-badge');
+    var barSections = el.querySelectorAll('.ch-bar-section');
+    var catTitle = el.querySelector('.ch-cat-title');
+    var catRows = el.querySelectorAll('.ch-cat-row');
+    var title = '🏪 ' + (name ? name.textContent : '') + ' <span style="font-size:16px;color:var(--text-muted);font-weight:400">' + (op ? op.textContent : '') + '</span>';
+
+    var barHTML = '';
+    barSections.forEach(function(sec) {
+      var header = sec.querySelector('.ch-bar-header');
+      var fill = sec.querySelector('.ch-bar-fill');
+      if (header && fill) {
+        var w = fill.style.width || '0%';
+        var c = getComputedStyle(fill).backgroundColor;
+        barHTML += '<div style="margin-bottom:20px"><div style="display:flex;justify-content:space-between;font-size:16px;margin-bottom:8px">' + header.innerHTML + '</div>' +
+          '<div style="height:14px;background:rgba(255,255,255,0.06);border-radius:7px;overflow:hidden"><div style="height:100%;width:' + w + ';background:' + c + ';border-radius:7px"></div></div></div>';
+      }
+    });
+
+    var catsHTML = '';
+    if (catRows.length) {
+      catsHTML = '<div style="margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.08)"><div style="font-size:14px;color:var(--text-muted);margin-bottom:12px">' + (catTitle ? catTitle.textContent : '类目明细') + '</div>';
+      catRows.forEach(function(r) {
+        catsHTML += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:14px"><span style="width:50px;color:var(--text-dim)">' + (r.querySelector('.ch-cat-label') ? r.querySelector('.ch-cat-label').textContent : '') + '</span>' +
+          '<div style="flex:1;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden"><div style="height:100%;width:' + (r.querySelector('.ch-cat-mini-fill') ? r.querySelector('.ch-cat-mini-fill').style.width || '0%' : '0%') + ';background:' + (r.querySelector('.ch-cat-mini-fill') ? getComputedStyle(r.querySelector('.ch-cat-mini-fill')).backgroundColor : '#fff') + ';border-radius:3px"></div></div>' +
+          '<span style="width:40px;font-weight:700;text-align:right;font-size:13px;color:' + (r.querySelector('.ch-cat-mini-pct') ? getComputedStyle(r.querySelector('.ch-cat-mini-pct')).color : '#fff') + '">' + (r.querySelector('.ch-cat-mini-pct') ? r.querySelector('.ch-cat-mini-pct').textContent : '') + '</span></div>';
+      });
+      catsHTML += '</div>';
+    }
+
+    panel.innerHTML = '<div class="fs-panel-inner"><div class="fs-panel-title" style="font-size:26px">' + title +
+      ' <span style="font-size:14px;padding:4px 14px;border-radius:12px;margin-left:12px;' + (badge ? 'background:' + getComputedStyle(badge).backgroundColor + ';color:' + getComputedStyle(badge).color : '') + '">' + (badge ? badge.textContent : '') + '</span></div>' +
+      '<div style="flex:1;display:flex;flex-direction:column;justify-content:center;max-width:800px;margin:0 auto;width:100%">' + barHTML + catsHTML + '</div></div>';
+  }
+
+  function collapse() {
+    if (!active) return;
+    active = false;
+    if (activePanel) {
+      if (activePanel._chart) activePanel._chart.destroy();
+      activePanel.remove();
+      activePanel = null;
+    }
+    overlay.classList.remove('active');
+    closeBtn.classList.remove('active');
+    hint.classList.remove('active');
+  }
+
+  overlay.addEventListener('click', function(e) { e.stopPropagation(); collapse(); });
+  closeBtn.addEventListener('click', function(e) { e.stopPropagation(); collapse(); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') collapse(); });
+})();
+</script>
+</body>
+</html>
